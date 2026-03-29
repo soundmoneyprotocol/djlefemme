@@ -15,13 +15,13 @@ interface Video {
 const videos: Video[] = [
   {
     id: '1',
-    src: '/videos/ET_Jaime_Tasha_Long_form.mp4',
-    title: 'Long Form'
+    src: '/videos/ET_Tash_Jaime_MiniDoc.mp4',
+    title: 'Mini Doc'
   },
   {
     id: '2',
-    src: '/videos/ET_Tash_Jaime_MiniDoc.mp4',
-    title: 'Mini Doc'
+    src: '/videos/ET_Jaime_Tasha_Long_form.mp4',
+    title: 'Long Form'
   },
   {
     id: '3',
