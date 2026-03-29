@@ -437,6 +437,64 @@ export default function TashaBoue() {
         </div>
       </section>
 
+
+      {/* Music Section */}
+      <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black py-20 px-6'>
+        <div className='max-w-4xl mx-auto'>
+          <div className='mb-16'>
+            <h2 className='text-5xl md:text-7xl font-black text-white mb-4 text-center'>Music</h2>
+            <p className='text-lg text-gray-300 text-center'>Discover the sounds that define the culture</p>
+          </div>
+          
+          <div className='grid md:grid-cols-1 gap-8'>
+            <div className='bg-gradient-to-br from-purple-900/30 to-black border border-purple-500/30 rounded-2xl p-8'>
+              <h3 className='text-2xl font-bold text-white mb-4'>Coming Soon</h3>
+              <p className='text-gray-300'>Exclusive music releases and curated playlists featuring Tasha Boué's artistic vision</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Links Section */}
+      <section className='relative z-10 bg-black py-20 px-6'>
+        <div className='max-w-4xl mx-auto'>
+          <div className='mb-12'>
+            <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Connect</h2>
+            <p className='text-lg text-gray-300 text-center'>Follow the latest from Tasha Boué</p>
+          </div>
+          
+          <div className='flex justify-center gap-8 flex-wrap'>
+            <a href='https://www.instagram.com/lefemmeboue/' target='_blank' rel='noopener noreferrer' className='group'>
+              <div className='bg-gradient-to-br from-pink-500 to-purple-600 p-6 rounded-xl hover:shadow-lg hover:shadow-pink-500/50 transition transform hover:scale-110'>
+                <svg className='w-8 h-8 text-white' fill='currentColor' viewBox='0 0 24 24'><path d='M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z'/></svg>
+              </div>
+              <p className='text-center text-white mt-3 font-semibold'>Instagram</p>
+            </a>
+            
+            <a href='https://x.com/LEFemmeBoue' target='_blank' rel='noopener noreferrer' className='group'>
+              <div className='bg-gradient-to-br from-slate-600 to-slate-800 p-6 rounded-xl hover:shadow-lg hover:shadow-slate-500/50 transition transform hover:scale-110'>
+                <svg className='w-8 h-8 text-white' fill='currentColor' viewBox='0 0 24 24'><path d='M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 9 0 9 0z'/></svg>
+              </div>
+              <p className='text-center text-white mt-3 font-semibold'>X (Twitter)</p>
+            </a>
+            
+            <a href='https://www.facebook.com/lefemme.boue.9' target='_blank' rel='noopener noreferrer' className='group'>
+              <div className='bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-xl hover:shadow-lg hover:shadow-blue-500/50 transition transform hover:scale-110'>
+                <svg className='w-8 h-8 text-white' fill='currentColor' viewBox='0 0 24 24'><path d='M18 2h-3a6 6 0 00-6 6v3H7v4h2v8h4v-8h3l1-4h-4V8a1 1 0 011-1h3z'/></svg>
+              </div>
+              <p className='text-center text-white mt-3 font-semibold'>Facebook</p>
+            </a>
+            
+            <a href='https://www.tiktok.com/@lefemme11?_t=8hSaBTvow8p&_r=1' target='_blank' rel='noopener noreferrer' className='group'>
+              <div className='bg-gradient-to-br from-black to-gray-800 p-6 rounded-xl hover:shadow-lg hover:shadow-gray-500/50 transition transform hover:scale-110 border border-gray-700'>
+                <svg className='w-8 h-8 text-white' fill='currentColor' viewBox='0 0 24 24'><path d='M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.08 1.61 2.88 2.88 0 0 1 4.07-4.09v-3.45a6.47 6.47 0 0 0-5.79 9.86 6.48 6.48 0 0 0 10.86-3.87V8.93a8.12 8.12 0 0 0 3.26.67Z'/></svg>
+              </div>
+              <p className='text-center text-white mt-3 font-semibold'>TikTok</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }
