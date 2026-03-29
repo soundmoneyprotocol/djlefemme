@@ -32,6 +32,172 @@ const videos: Video[] = [
   }
 ];
 
+
+// BezyCounterWithVideo Component
+const BezyCounterWithVideo: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [baseBalance, setBaseBalance] = useState(2450.50);
+  const [sessionEarnings, setSessionEarnings] = useState(0);
+  const [earningsPerSecond] = useState(0.15); // Earnings per second during playback
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    const video = videoRef.current;
+    
+    const handlePlay = () => {
+      setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
+    };
+
+    const handleTimeUpdate = () => {
+      if (isPlaying && video.duration) {
+        const secondsPlayed = video.currentTime;
+        const earnings = secondsPlayed * earningsPerSecond;
+        setSessionEarnings(earnings);
+      }
+    };
+
+    const handleEnded = () => {
+      setIsPlaying(false);
+    };
+
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, [isPlaying, earningsPerSecond]);
+
+  const totalBalance = baseBalance + sessionEarnings;
+
+  return (
+    <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black py-20 px-6'>
+      <div className='max-w-4xl mx-auto'>
+        <div className='mb-16'>
+          <h2 className='text-5xl md:text-7xl font-black text-white mb-4 text-center'>Music</h2>
+          <p className='text-lg text-gray-300 text-center'>Play and earn with real-time BZY counter</p>
+        </div>
+
+        <div className='grid md:grid-cols-1 gap-8'>
+          {/* Video Player */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className='bg-gradient-to-br from-neutral-900/80 to-neutral-950/80 border border-neutral-800 rounded-2xl overflow-hidden backdrop-blur-sm'
+          >
+            <div className='relative bg-black'>
+              <video
+                ref={videoRef}
+                className='w-full h-auto max-h-96 object-cover'
+                controls
+                playsInline
+              >
+                <source src='/videos/ET_Jaime_Tasha_Long_form.mp4' type='video/mp4' />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            {/* Counter Overlay */}
+            <div className='p-6 space-y-4'>
+              {/* Main Counter */}
+              <div className='space-y-3'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-2'>
+                    <Zap className='text-[#FD7125]' size={20} />
+                    <span className='text-xs font-semibold text-neutral-400'>REAL-TIME EARNINGS</span>
+                  </div>
+                  {isPlaying && (
+                    <motion.span
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                      className='text-xs font-bold text-green-400'
+                    >
+                      ● EARNING
+                    </motion.span>
+                  )}
+                </div>
+
+                {/* BZY Balance */}
+                <motion.div
+                  key={totalBalance}
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  className='space-y-1'
+                >
+                  <p className='text-4xl font-bold text-white'>
+                    {totalBalance.toFixed(2)} BZY
+                  </p>
+                  <p className='text-sm text-neutral-400'>
+                    Base: {baseBalance.toFixed(2)} BZY + Session: +{sessionEarnings.toFixed(2)} BZY
+                  </p>
+                </motion.div>
+
+                {/* Earnings Per Second */}
+                <motion.div
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  className='flex items-center gap-2'
+                >
+                  <div className='w-full h-2 bg-neutral-700 rounded-full overflow-hidden'>
+                    <motion.div
+                      className='h-full bg-gradient-to-r from-[#FD7125] to-[#FF6B35]'
+                      animate={{ width: isPlaying ? '100%' : '0%' }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </div>
+                  <span className='text-sm font-semibold text-[#FD7125] whitespace-nowrap'>
+                    {earningsPerSecond.toFixed(2)} BZY/s
+                  </span>
+                </motion.div>
+              </div>
+
+              {/* Session Stats */}
+              <div className='border-t border-neutral-700 pt-4 space-y-2'>
+                <p className='text-xs font-bold text-[#FD7125] uppercase tracking-wider'>Session Stats</p>
+                <div className='space-y-2 text-sm text-neutral-300'>
+                  <div className='flex justify-between'>
+                    <span>Playback Time</span>
+                    <span className='text-white font-semibold'>
+                      {videoRef.current ? Math.floor(videoRef.current.currentTime / 60) : 0}:{String((videoRef.current ? Math.floor(videoRef.current.currentTime % 60) : 0)).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span>Session Earnings</span>
+                    <span className='text-green-400 font-semibold'>+${(sessionEarnings * 2.4).toFixed(2)}</span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span>Video Status</span>
+                    <span className='text-white font-semibold'>{isPlaying ? '▶ Playing' : '⏸ Paused'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Status Indicator */}
+              <motion.div
+                className='text-xs text-neutral-500 flex items-center gap-2 pt-2 border-t border-neutral-700'
+              >
+                <span>{isPlaying ? '●' : '○'} SoundMoney Bezy Video Counter</span>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
 export default function TashaBoue() {
   const containerRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -440,93 +606,8 @@ export default function TashaBoue() {
       </section>
 
 
-      {/* Music Section */}
-      <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black py-20 px-6'>
-        <div className='max-w-4xl mx-auto'>
-          <div className='mb-16'>
-            <h2 className='text-5xl md:text-7xl font-black text-white mb-4 text-center'>Music</h2>
-            <p className='text-lg text-gray-300 text-center'>Discover the sounds that define the culture</p>
-          </div>
-          
-          <div className='grid md:grid-cols-1 gap-8'>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className='bg-gradient-to-br from-neutral-900/80 to-neutral-950/80 border border-neutral-800 rounded-2xl p-6 backdrop-blur-sm space-y-4'
-            >
-              {/* Main Counter */}
-              <div className='space-y-3'>
-                <div className='flex items-center gap-2 mb-2'>
-                  <Zap className='text-[#FD7125]' size={20} />
-                  <span className='text-xs font-semibold text-neutral-400'>BZY EARNINGS</span>
-                </div>
-
-                {/* BZY Balance */}
-                <motion.div
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  className='space-y-1'
-                >
-                  <p className='text-3xl font-bold text-white'>
-                    2,450.50 BZY
-                  </p>
-                  <p className='text-sm text-neutral-400'>Total Balance</p>
-                </motion.div>
-
-                {/* Daily Earnings */}
-                <motion.div
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  className='flex items-center gap-2'
-                >
-                  <div className='w-full h-2 bg-neutral-700 rounded-full overflow-hidden'>
-                    <motion.div
-                      className='h-full bg-gradient-to-r from-[#FD7125] to-[#FF6B35]'
-                      animate={{ width: '45%' }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </div>
-                  <span className='text-sm font-semibold text-[#FD7125] whitespace-nowrap'>
-                    +$45.25 today
-                  </span>
-                </motion.div>
-              </div>
-
-              {/* Features List */}
-              <div className='border-t border-neutral-700 pt-4 space-y-2'>
-                <p className='text-xs font-bold text-[#FD7125] uppercase tracking-wider'>Live Earnings</p>
-                <div className='space-y-2 text-sm text-neutral-300'>
-                  <div className='flex justify-between'>
-                    <span>Streams</span>
-                    <span className='text-white font-semibold'>15,420</span>
-                  </div>
-                  <div className='flex justify-between'>
-                    <span>Monthly Revenue</span>
-                    <span className='text-white font-semibold'>+18% boost</span>
-                  </div>
-                  <div className='flex justify-between'>
-                    <span>Active Listeners</span>
-                    <span className='text-white font-semibold'>3,421</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Status Indicator */}
-              <motion.div
-                className='text-xs text-neutral-500 flex items-center gap-2 pt-2 border-t border-neutral-700'
-              >
-                <motion.span
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  ● Live
-                </motion.span>
-                <span>SoundMoney Bezy Counter</span>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* Music Section with Video & Earnings */}
+      <BezyCounterWithVideo />
 
       {/* Social Links Section */}
       <section className='relative z-10 bg-black py-20 px-6'>
