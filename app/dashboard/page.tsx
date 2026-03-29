@@ -270,11 +270,11 @@ export default function DashboardPage() {
                     <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
                       <div>
                         <p className='text-xs text-gray-400'>Name</p>
-                        <p className='text-white font-semibold'>{booking.name}</p>
+                        <p className='text-black dark:text-white font-semibold'>{booking.name}</p>
                       </div>
                       <div>
                         <p className='text-xs text-gray-400'>Email</p>
-                        <p className='text-white font-mono text-sm break-all'>{booking.email}</p>
+                        <p className='text-black dark:text-white font-mono text-sm break-all'>{booking.email}</p>
                       </div>
                       <div>
                         <p className='text-xs text-gray-400'>Phone</p>
@@ -331,7 +331,7 @@ export default function DashboardPage() {
                     <div className='flex items-start justify-between gap-4'>
                       <div>
                         <p className='text-xs text-gray-400'>From</p>
-                        <p className='text-white font-mono text-sm break-all'>{chat.email}</p>
+                        <p className='text-black dark:text-white font-mono text-sm break-all'>{chat.email}</p>
                       </div>
                       <div className='text-right'>
                         <p className='text-xs text-gray-400'>Time</p>
@@ -408,7 +408,7 @@ export default function DashboardPage() {
                       <div className='flex items-start justify-between gap-4'>
                         <div>
                           <p className='text-xs text-gray-400'>Track</p>
-                          <p className='text-white font-semibold'>{track.trackTitle}</p>
+                          <p className='text-black dark:text-white font-semibold'>{track.trackTitle}</p>
                         </div>
                         <div className='text-right'>
                           <p className='text-xs text-gray-400'>Last Played</p>

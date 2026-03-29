@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ThemeProvider } from '@/context/ThemeContext';
+import { RootClientWrapper } from '@/components/RootClientWrapper';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang='en' className='scroll-smooth'>
       <body className='bg-white text-black dark:bg-black dark:text-white transition-colors'>
-        <ThemeProvider>{children}</ThemeProvider>
+        <RootClientWrapper>{children}</RootClientWrapper>
       </body>
     </html>
   );
