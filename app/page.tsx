@@ -206,3 +206,65 @@ export default function TashaBoue() {
     </main>
   );
 }
+
+      {/* Content Section */}
+      <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
+        <div className='max-w-4xl mx-auto'>
+          <div className='mb-16'>
+            <h2 className='text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400'>
+              Creative Director & Founder
+            </h2>
+            <p className='text-xl md:text-2xl font-semibold text-white mb-2'>HouseDAO</p>
+          </div>
+
+          <div className='space-y-8 text-gray-300'>
+            {/* Main Bio */}
+            <div>
+              <h3 className='text-2xl font-bold text-white mb-4'>About Tasha Boué</h3>
+              <p className='text-lg leading-relaxed'>
+                Tasha Boué is a renowned fashion stylist and entrepreneur who has been instrumental in crafting <span className='text-pink-400 font-semibold'>Jaime Foxx's iconic on-screen and red-carpet looks for over a decade.</span> She is best known for her work as Jaime Foxx's personal and film stylist, curating his looks for major projects, including:
+              </p>
+              <ul className='mt-4 space-y-2 ml-6'>
+                <li className='flex items-start gap-3'>
+                  <span className='text-pink-400 mt-1'>•</span>
+                  <span><span className='text-white font-semibold'>Electro</span> in The Amazing Spider-Man 2</span>
+                </li>
+                <li className='flex items-start gap-3'>
+                  <span className='text-pink-400 mt-1'>•</span>
+                  <span><span className='text-white font-semibold'>Django</span> in Django Unchained</span>
+                </li>
+                <li className='flex items-start gap-3'>
+                  <span className='text-pink-400 mt-1'>•</span>
+                  <span><span className='text-white font-semibold'>President James Sawyer</span> in White House Down</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* The Heart of Cool */}
+            <div>
+              <h3 className='text-2xl font-bold text-white mb-4'>The Heart of Cool</h3>
+              <p className='text-lg leading-relaxed'>
+                Tasha has curated and organized events at the world's most prestigious venues—Miami Art Basel, SXSW, Coachella, and many more—seamlessly blending music, fashion, and visual arts. Her strategic collaborations with luxury hotels and private jet companies have elevated exclusive experiences, making them accessible to a discerning global audience.
+              </p>
+            </div>
+
+            {/* Media & Recognition */}
+            <div>
+              <h3 className='text-2xl font-bold text-white mb-4'>Media & Recognition</h3>
+              <p className='text-lg leading-relaxed'>
+                Featured on IMDb for her work in the wardrobe department of <span className='text-white font-semibold'>America's Next Top Model</span>, Tasha's expertise spans film, television, fashion curation, and high-level event production.
+              </p>
+            </div>
+
+            {/* Vision */}
+            <div className='bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-500/30 rounded-xl p-8 mt-12'>
+              <p className='text-lg leading-relaxed italic'>
+                Through her work with HouseDAO and beyond, Tasha continues to redefine luxury, style, and creative excellence—bridging the worlds of entertainment, fashion, and cutting-edge design.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
