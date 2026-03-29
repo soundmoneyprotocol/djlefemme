@@ -385,24 +385,14 @@ export default function TashaBoue() {
           <div className='mb-20'>
             <h3 className='text-3xl font-bold text-white mb-12 text-center'>Membership Tiers</h3>
             <div className='grid md:grid-cols-4 gap-6'>
-              {/* Internally Flawless Tier */}
-              <div className='bg-pink-900/30 border border-pink-500/50 rounded-xl p-6'>
-                <h4 className='text-xl font-bold text-white mb-2'>SI</h4>
-                <p className='text-sm text-pink-300 mb-4'>Base Network</p>
+              {/* Flawless Tier */}
+              <div className='bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border border-yellow-500/50 rounded-xl p-6'>
+                <h4 className='text-xl font-bold text-white mb-2'>Flawless</h4>
+                <p className='text-sm text-yellow-300 mb-4'>Global Elite</p>
                 <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>General entry</li>
-                  <li>QR access pass</li>
-                  <li>Curated events</li>
-                </ul>
-              </div>
-              {/* VS Tier */}
-              <div className='bg-gray-900/50 border border-gray-700 rounded-xl p-6'>
-                <h4 className='text-xl font-bold text-white mb-2'>VS</h4>
-                <p className='text-sm text-gray-400 mb-4'>Network Governance</p>
-                <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>All area access</li>
-                  <li>Private previews</li>
-                  <li>Co-curation rights</li>
+                  <li>Elite networking</li>
+                  <li>Concierge network</li>
+                  <li>Fractional Real Estate</li>
                 </ul>
               </div>
               {/* VVS1 Tier */}
@@ -415,14 +405,24 @@ export default function TashaBoue() {
                   <li>Mixers & networking</li>
                 </ul>
               </div>
-              {/* Flawless Tier */}
-              <div className='bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border border-yellow-500/50 rounded-xl p-6'>
-                <h4 className='text-xl font-bold text-white mb-2'>Flawless</h4>
-                <p className='text-sm text-yellow-300 mb-4'>Global Elite</p>
+              {/* VS Tier */}
+              <div className='bg-gray-900/50 border border-gray-700 rounded-xl p-6'>
+                <h4 className='text-xl font-bold text-white mb-2'>VS</h4>
+                <p className='text-sm text-gray-400 mb-4'>Network Governance</p>
                 <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>Elite networking</li>
-                  <li>Concierge network</li>
-                  <li>Fractional Real Estate</li>
+                  <li>All area access</li>
+                  <li>Private previews</li>
+                  <li>Co-curation rights</li>
+                </ul>
+              </div>
+              {/* Internally Flawless Tier */}
+              <div className='bg-pink-900/30 border border-pink-500/50 rounded-xl p-6'>
+                <h4 className='text-xl font-bold text-white mb-2'>SI</h4>
+                <p className='text-sm text-pink-300 mb-4'>Base Network</p>
+                <ul className='text-sm text-gray-300 space-y-2'>
+                  <li>General entry</li>
+                  <li>QR access pass</li>
+                  <li>Curated events</li>
                 </ul>
               </div>
             </div>
