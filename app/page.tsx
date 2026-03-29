@@ -231,6 +231,26 @@ export default function TashaBoue() {
         </div>
       </section>
 
+      {/* HouseDAO Pitch Deck Section */}
+      <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
+        <div className='max-w-4xl mx-auto'>
+          <div className='mb-12'>
+            <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Explore the Vision</h2>
+            <p className='text-lg text-gray-300 text-center'>HouseDAO Strategic Blueprint</p>
+          </div>
+          
+          <div className='flex justify-center'>
+            <iframe 
+              src="https://pitch.com/embed-link/dizj4v" 
+              allow="fullscreen; clipboard-write" 
+              allowFullScreen 
+              width="560" 
+              height="368" 
+              style={{ border: 'none', borderRadius: '12px' }}
+            />
+          </div>
+        </div>
+      </section>
       {/* VVS Flawless Experiences Section */}
       <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black py-20 px-6'>
         <div className='max-w-6xl mx-auto'>
@@ -338,22 +358,7 @@ export default function TashaBoue() {
             </div>
           </div>
 
-          {/* Pitch Deck */}
-          <div className='mb-20'>
-            <h3 className='text-3xl font-bold text-white mb-8 text-center'>Explore the Vision</h3>
-            <div className='flex justify-center'>
-              <iframe 
-                src="https://pitch.com/embed-link/dizj4v" 
-                allow="fullscreen; clipboard-write" 
-                allowFullScreen 
-                width="560" 
-                height="368" 
-                style={{ border: 'none', borderRadius: '12px' }}
-              />
-            </div>
-          </div>
-
-          {/* Vision Statement */}
+{/* Vision Statement */}
           <div className='bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-500/40 rounded-2xl p-12 text-center'>
             <p className='text-xl md:text-2xl text-gray-200 leading-relaxed'>
               VVS Flawless Experiences represents the intersection of <span className='text-purple-300 font-semibold'>luxury curation</span>, <span className='text-pink-300 font-semibold'>creative excellence</span>, and <span className='text-orange-300 font-semibold'>elite networking</span>. Each event is a milestone in a global movement—where the world's most discerning audiences connect, create, and elevate together.
