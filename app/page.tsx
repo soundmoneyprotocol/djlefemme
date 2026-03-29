@@ -760,6 +760,267 @@ export default function TashaBoue() {
 
 
       {/* Music Section with Video & Earnings */}
+
+// TalentBooking Component
+const TalentBooking: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    eventType: '',
+    eventDate: '',
+    budget: '',
+    details: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [chatMessages, setChatMessages] = useState<Array<{ sender: string; text: string }>>([
+    { sender: 'Tasha', text: 'Hi! Thanks for reaching out about booking. How can I help you?' },
+  ]);
+  const [chatInput, setChatInput] = useState('');
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/booking/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          eventType: '',
+          eventDate: '',
+          budget: '',
+          details: '',
+        });
+        setTimeout(() => setSubmitted(false), 3000);
+      }
+    } catch (error) {
+      console.error('Failed to submit booking form:', error);
+    }
+  };
+
+  const handleChatSend = async () => {
+    if (!chatInput.trim()) return;
+
+    const userMessage = chatInput;
+    setChatMessages(prev => [...prev, { sender: 'You', text: userMessage }]);
+    setChatInput('');
+
+    try {
+      const response = await fetch('/api/booking/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: userMessage,
+          email: formData.email || 'guest@example.com',
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setChatMessages(prev => [...prev, { sender: 'Tasha', text: data.reply }]);
+      }
+    } catch (error) {
+      console.error('Failed to send chat message:', error);
+    }
+  };
+
+  return (
+    <section className='relative z-10 bg-gradient-to-b from-black via-blue-900/10 to-black py-20 px-6'>
+      <div className='max-w-6xl mx-auto'>
+        <div className='mb-16'>
+          <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Talent Booking</h2>
+          <p className='text-lg text-gray-300 text-center'>Book Tasha for your next event or collaboration</p>
+        </div>
+
+        <div className='grid md:grid-cols-2 gap-8'>
+          {/* Booking Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className='bg-gradient-to-br from-blue-900/30 to-black border border-blue-500/30 rounded-2xl p-8 space-y-6'
+          >
+            <div>
+              <h3 className='text-2xl font-bold text-white mb-6'>Event Details</h3>
+              <form onSubmit={handleFormSubmit} className='space-y-4'>
+                <div>
+                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Name</label>
+                  <input
+                    type='text'
+                    name='name'
+                    value={formData.name}
+                    onChange={handleFormChange}
+                    required
+                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
+                    placeholder='Your name'
+                  />
+                </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Email</label>
+                  <input
+                    type='email'
+                    name='email'
+                    value={formData.email}
+                    onChange={handleFormChange}
+                    required
+                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
+                    placeholder='your@email.com'
+                  />
+                </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Phone</label>
+                  <input
+                    type='tel'
+                    name='phone'
+                    value={formData.phone}
+                    onChange={handleFormChange}
+                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
+                    placeholder='+1 (555) 000-0000'
+                  />
+                </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Event Type</label>
+                  <select
+                    name='eventType'
+                    value={formData.eventType}
+                    onChange={handleFormChange}
+                    required
+                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
+                  >
+                    <option value=''>Select event type</option>
+                    <option value='performance'>Performance/DJ</option>
+                    <option value='styling'>Styling/Wardrobe</option>
+                    <option value='consultation'>Consultation</option>
+                    <option value='collaboration'>Collaboration</option>
+                    <option value='other'>Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Event Date</label>
+                  <input
+                    type='date'
+                    name='eventDate'
+                    value={formData.eventDate}
+                    onChange={handleFormChange}
+                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
+                  />
+                </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Budget (USD)</label>
+                  <input
+                    type='number'
+                    name='budget'
+                    value={formData.budget}
+                    onChange={handleFormChange}
+                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
+                    placeholder='5000'
+                  />
+                </div>
+
+                <div>
+                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Details</label>
+                  <textarea
+                    name='details'
+                    value={formData.details}
+                    onChange={handleFormChange}
+                    rows={4}
+                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60 resize-none'
+                    placeholder='Tell us more about your event...'
+                  />
+                </div>
+
+                <motion.button
+                  type='submit'
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 rounded-lg transition'
+                >
+                  {submitted ? '✓ Submitted!' : 'Submit Booking Request'}
+                </motion.button>
+              </form>
+            </div>
+          </motion.div>
+
+          {/* Chat Interface */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className='bg-gradient-to-br from-blue-900/30 to-black border border-blue-500/30 rounded-2xl p-8 flex flex-col h-full space-y-4'
+          >
+            <h3 className='text-2xl font-bold text-white'>Chat with Tasha</h3>
+            
+            {/* Chat Messages */}
+            <div className='flex-1 overflow-y-auto space-y-4 min-h-96 bg-neutral-900/30 rounded-lg p-4'>
+              {chatMessages.map((msg, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`flex ${msg.sender === 'Tasha' ? 'justify-start' : 'justify-end'}`}
+                >
+                  <div
+                    className={`max-w-xs px-4 py-2 rounded-lg ${
+                      msg.sender === 'Tasha'
+                        ? 'bg-blue-500/30 border border-blue-500/50 text-gray-100'
+                        : 'bg-blue-600/50 border border-blue-600/50 text-white'
+                    }`}
+                  >
+                    <p className='text-xs font-semibold text-blue-300 mb-1'>{msg.sender}</p>
+                    <p className='text-sm'>{msg.text}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Chat Input */}
+            <div className='flex gap-2'>
+              <input
+                type='text'
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleChatSend()}
+                className='flex-1 bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60 text-sm'
+                placeholder='Type your message...'
+              />
+              <motion.button
+                onClick={handleChatSend}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className='bg-blue-500 hover:bg-blue-600 text-white font-bold px-6 py-2 rounded-lg transition'
+              >
+                Send
+              </motion.button>
+            </div>
+
+            <p className='text-xs text-gray-400 text-center'>Powered by OpenClaw - Email & CRM Management</p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+      <TalentBooking />
+
       <BezyCounterWithVideo />
 
 
