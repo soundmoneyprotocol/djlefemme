@@ -249,7 +249,7 @@ export default function TashaBoue() {
           <div className='grid md:grid-cols-3 gap-8 mb-20'>
             {/* Pillar 1 */}
             <div className='bg-gradient-to-br from-purple-900/30 to-black border border-purple-500/30 rounded-2xl p-8 hover:border-purple-400/60 transition'>
-              <h3 className='text-3xl font-bold text-white mb-4'>✂️ Cut</h3>
+              <h3 className='text-3xl font-bold text-white mb-4'>Cut</h3>
               <p className='text-gray-300 text-lg'>
                 Cut above the rest
               </p>
@@ -260,7 +260,7 @@ export default function TashaBoue() {
 
             {/* Pillar 2 */}
             <div className='bg-gradient-to-br from-pink-900/30 to-black border border-pink-500/30 rounded-2xl p-8 hover:border-pink-400/60 transition'>
-              <h3 className='text-3xl font-bold text-white mb-4'>🎨 Color</h3>
+              <h3 className='text-3xl font-bold text-white mb-4'>Color</h3>
               <p className='text-gray-300 text-lg'>
                 Color the Room Creatively
               </p>
@@ -271,7 +271,7 @@ export default function TashaBoue() {
 
             {/* Pillar 3 */}
             <div className='bg-gradient-to-br from-blue-900/30 to-black border border-blue-500/30 rounded-2xl p-8 hover:border-blue-400/60 transition'>
-              <h3 className='text-3xl font-bold text-white mb-4'>💎 Carat</h3>
+              <h3 className='text-3xl font-bold text-white mb-4'>Carat</h3>
               <p className='text-gray-300 text-lg'>
                 Carats is the Heavy Weights in the Room
               </p>
@@ -290,9 +290,9 @@ export default function TashaBoue() {
                 <h4 className='text-xl font-bold text-white mb-2'>VS</h4>
                 <p className='text-sm text-gray-400 mb-4'>Base Network</p>
                 <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>✓ General entry</li>
-                  <li>✓ QR access pass</li>
-                  <li>✓ Curated events</li>
+                  <li>General entry</li>
+                  <li>QR access pass</li>
+                  <li>Curated events</li>
                 </ul>
               </div>
 
@@ -301,9 +301,9 @@ export default function TashaBoue() {
                 <h4 className='text-xl font-bold text-white mb-2'>VVS</h4>
                 <p className='text-sm text-purple-300 mb-4'>Network Stake</p>
                 <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>✓ Exclusive lounge</li>
-                  <li>✓ Early art access</li>
-                  <li>✓ Mixers & networking</li>
+                  <li>Exclusive lounge</li>
+                  <li>Early art access</li>
+                  <li>Mixers & networking</li>
                 </ul>
               </div>
 
@@ -312,9 +312,9 @@ export default function TashaBoue() {
                 <h4 className='text-xl font-bold text-white mb-2'>IF</h4>
                 <p className='text-sm text-pink-300 mb-4'>Network Governance</p>
                 <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>✓ All area access</li>
-                  <li>✓ Private previews</li>
-                  <li>✓ Co-curation rights</li>
+                  <li>All area access</li>
+                  <li>Private previews</li>
+                  <li>Co-curation rights</li>
                 </ul>
               </div>
 
@@ -323,9 +323,9 @@ export default function TashaBoue() {
                 <h4 className='text-xl font-bold text-white mb-2'>Flawless</h4>
                 <p className='text-sm text-yellow-300 mb-4'>Global Elite</p>
                 <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>✓ Elite networking</li>
-                  <li>✓ Personal escort</li>
-                  <li>✓ VIP experiences</li>
+                  <li>Elite networking</li>
+                  <li>Personal escort</li>
+                  <li>VIP experiences</li>
                 </ul>
               </div>
             </div>
