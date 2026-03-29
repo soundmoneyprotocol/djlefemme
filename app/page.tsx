@@ -191,7 +191,7 @@ export default function TashaBoue() {
           <div className='space-y-8 text-gray-300'>
             {/* Main Bio */}
             <div>
-              <h3 className='text-2xl font-bold text-white mb-4'>About Tasha Boué</h3>
+              <h3 className='text-2xl font-bold text-white mb-4'>Who is Tasha Boué</h3>
               <p className='text-lg leading-relaxed'>
                 Tasha Boué is a renowned fashion stylist and entrepreneur who has been instrumental in crafting <span className='text-pink-400 font-semibold'>Jaime Foxx's iconic on-screen and red-carpet looks for over a decade.</span> She is best known for her work as Jaime Foxx's personal and film stylist, curating his looks for major projects, including:
               </p>
