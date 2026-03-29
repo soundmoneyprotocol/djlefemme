@@ -230,6 +230,131 @@ export default function TashaBoue() {
           </div>
         </div>
       </section>
+
+      {/* VVS Flawless Experiences Section */}
+      <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black py-20 px-6'>
+        <div className='max-w-6xl mx-auto'>
+          {/* Header */}
+          <div className='mb-20 text-center'>
+            <h2 className='text-5xl md:text-7xl font-black mb-4 text-white'>VVS</h2>
+            <p className='text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent mb-6'>
+              Flawless Experiences
+            </p>
+            <p className='text-lg text-gray-300 max-w-2xl mx-auto'>
+              "Cut, Color, Carat, Clarity"—An exclusive luxury event network redefining curated experiences
+            </p>
+          </div>
+
+          {/* Three Pillars */}
+          <div className='grid md:grid-cols-3 gap-8 mb-20'>
+            {/* Pillar 1 */}
+            <div className='bg-gradient-to-br from-purple-900/30 to-black border border-purple-500/30 rounded-2xl p-8 hover:border-purple-400/60 transition'>
+              <h3 className='text-3xl font-bold text-white mb-4'>✂️ Cut</h3>
+              <p className='text-gray-300 text-lg'>
+                Cut above the rest
+              </p>
+              <p className='text-gray-400 text-sm mt-4'>
+                Premium curation, elevated experiences, and strategic network positioning
+              </p>
+            </div>
+
+            {/* Pillar 2 */}
+            <div className='bg-gradient-to-br from-pink-900/30 to-black border border-pink-500/30 rounded-2xl p-8 hover:border-pink-400/60 transition'>
+              <h3 className='text-3xl font-bold text-white mb-4'>🎨 Color</h3>
+              <p className='text-gray-300 text-lg'>
+                Color the Room Creatively
+              </p>
+              <p className='text-gray-400 text-sm mt-4'>
+                Art curation, music experiences, and cultural fusion across global venues
+              </p>
+            </div>
+
+            {/* Pillar 3 */}
+            <div className='bg-gradient-to-br from-blue-900/30 to-black border border-blue-500/30 rounded-2xl p-8 hover:border-blue-400/60 transition'>
+              <h3 className='text-3xl font-bold text-white mb-4'>💎 Carat</h3>
+              <p className='text-gray-300 text-lg'>
+                Carats is the Heavy Weights in the Room
+              </p>
+              <p className='text-gray-400 text-sm mt-4'>
+                Elite networks, investor dinners, and transformational partnerships
+              </p>
+            </div>
+          </div>
+
+          {/* Tier Structure */}
+          <div className='mb-20'>
+            <h3 className='text-3xl font-bold text-white mb-12 text-center'>Membership Tiers</h3>
+            <div className='grid md:grid-cols-4 gap-6'>
+              {/* VS Tier */}
+              <div className='bg-gray-900/50 border border-gray-700 rounded-xl p-6'>
+                <h4 className='text-xl font-bold text-white mb-2'>VS</h4>
+                <p className='text-sm text-gray-400 mb-4'>Base Network</p>
+                <ul className='text-sm text-gray-300 space-y-2'>
+                  <li>✓ General entry</li>
+                  <li>✓ QR access pass</li>
+                  <li>✓ Curated events</li>
+                </ul>
+              </div>
+
+              {/* VVS1 Tier */}
+              <div className='bg-purple-900/30 border border-purple-500/50 rounded-xl p-6'>
+                <h4 className='text-xl font-bold text-white mb-2'>VVS</h4>
+                <p className='text-sm text-purple-300 mb-4'>Network Stake</p>
+                <ul className='text-sm text-gray-300 space-y-2'>
+                  <li>✓ Exclusive lounge</li>
+                  <li>✓ Early art access</li>
+                  <li>✓ Mixers & networking</li>
+                </ul>
+              </div>
+
+              {/* Internally Flawless Tier */}
+              <div className='bg-pink-900/30 border border-pink-500/50 rounded-xl p-6'>
+                <h4 className='text-xl font-bold text-white mb-2'>IF</h4>
+                <p className='text-sm text-pink-300 mb-4'>Network Governance</p>
+                <ul className='text-sm text-gray-300 space-y-2'>
+                  <li>✓ All area access</li>
+                  <li>✓ Private previews</li>
+                  <li>✓ Co-curation rights</li>
+                </ul>
+              </div>
+
+              {/* Flawless Tier */}
+              <div className='bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border border-yellow-500/50 rounded-xl p-6'>
+                <h4 className='text-xl font-bold text-white mb-2'>Flawless</h4>
+                <p className='text-sm text-yellow-300 mb-4'>Global Elite</p>
+                <ul className='text-sm text-gray-300 space-y-2'>
+                  <li>✓ Elite networking</li>
+                  <li>✓ Personal escort</li>
+                  <li>✓ VIP experiences</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Pitch Deck */}
+          <div className='mb-20'>
+            <h3 className='text-3xl font-bold text-white mb-8 text-center'>Explore the Vision</h3>
+            <div className='flex justify-center'>
+              <iframe 
+                src="https://pitch.com/embed-link/dizj4v" 
+                allow="fullscreen; clipboard-write" 
+                allowFullScreen 
+                width="560" 
+                height="368" 
+                style={{ border: 'none', borderRadius: '12px' }}
+              />
+            </div>
+          </div>
+
+          {/* Vision Statement */}
+          <div className='bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-500/40 rounded-2xl p-12 text-center'>
+            <p className='text-xl md:text-2xl text-gray-200 leading-relaxed'>
+              VVS Flawless Experiences represents the intersection of <span className='text-purple-300 font-semibold'>luxury curation</span>, <span className='text-pink-300 font-semibold'>creative excellence</span>, and <span className='text-orange-300 font-semibold'>elite networking</span>. Each event is a milestone in a global movement—where the world's most discerning audiences connect, create, and elevate together.
+            </p>
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }
