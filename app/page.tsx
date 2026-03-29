@@ -141,7 +141,7 @@ export default function TashaBoue() {
                 key={video.id}
                 className='flex-shrink-0 w-screen md:w-[80vw] h-[60vh] md:h-[70vh] snap-center'
               >
-                <div className='relative w-full h-full rounded-2xl overflow-hidden shadow-2xl group'>
+                <div className='relative w-full h-full rounded-2xl overflow-hidden shadow-2xl'>
                   {/* Video */}
                   <video
                     src={video.src}
@@ -150,18 +150,7 @@ export default function TashaBoue() {
                     playsInline
                   />
 
-                  {/* Overlay gradient */}
-                  <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent group-hover:from-black/30 transition-all duration-300' />
 
-                  {/* Video title */}
-                  <div className='absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300'>
-                    <p className='text-lg md:text-2xl font-bold'>
-                      {video.title}
-                    </p>
-                    <p className='text-sm md:text-base text-gray-300'>
-                      Video {index + 1} of {videos.length}
-                    </p>
-                  </div>
                 </div>
               </div>
             ))}
