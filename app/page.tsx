@@ -86,7 +86,7 @@ const BezyCounterWithVideo: React.FC = () => {
       <div className='max-w-4xl mx-auto'>
         <div className='mb-16'>
           <h2 className='text-5xl md:text-7xl font-black text-white mb-4 text-center'>Music</h2>
-          <p className='text-lg text-gray-300 text-center'>Play and earn with real-time BZY counter</p>
+          <p className='text-lg text-gray-300 text-center'>Play and earn with real-time SoundMoneyOS counter</p>
         </div>
 
         <div className='grid md:grid-cols-1 gap-8'>
