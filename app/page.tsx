@@ -298,11 +298,11 @@ export default function TashaBoue() {
               {/* VS Tier */}
               <div className='bg-gray-900/50 border border-gray-700 rounded-xl p-6'>
                 <h4 className='text-xl font-bold text-white mb-2'>VS</h4>
-                <p className='text-sm text-gray-400 mb-4'>Base Network</p>
+                <p className='text-sm text-gray-400 mb-4'>Network Governance</p>
                 <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>General entry</li>
-                  <li>QR access pass</li>
-                  <li>Curated events</li>
+                  <li>All area access</li>
+                  <li>Private previews</li>
+                  <li>Co-curation rights</li>
                 </ul>
               </div>
 
@@ -320,11 +320,11 @@ export default function TashaBoue() {
               {/* Internally Flawless Tier */}
               <div className='bg-pink-900/30 border border-pink-500/50 rounded-xl p-6'>
                 <h4 className='text-xl font-bold text-white mb-2'>SI</h4>
-                <p className='text-sm text-pink-300 mb-4'>Network Governance</p>
+                <p className='text-sm text-pink-300 mb-4'>Base Network</p>
                 <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>All area access</li>
-                  <li>Private previews</li>
-                  <li>Co-curation rights</li>
+                  <li>General entry</li>
+                  <li>QR access pass</li>
+                  <li>Curated events</li>
                 </ul>
               </div>
 
