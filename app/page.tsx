@@ -94,7 +94,7 @@ const ReferralSection: React.FC = () => {
     <section className='relative z-10 bg-gradient-to-b from-black via-green-900/10 to-black py-20 px-6'>
       <div className='max-w-4xl mx-auto'>
         <div className='mb-12'>
-          <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Earn with Referrals</h2>
+          <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Earn with SoundMoney</h2>
           <p className='text-lg text-gray-300 text-center'>Share your unique referral link and earn streaming rewards</p>
         </div>
 
