@@ -183,7 +183,7 @@ export default function TashaBoue() {
         <div className='max-w-4xl mx-auto'>
           <div className='mb-16'>
             <h2 className='text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400'>
-              Creative Director & Founder
+              Creative Director & Co-Founder
             </h2>
             <p className='text-xl md:text-2xl font-semibold text-white mb-2'>HouseDAO</p>
           </div>
