@@ -295,28 +295,6 @@ export default function TashaBoue() {
           <div className='mb-20'>
             <h3 className='text-3xl font-bold text-white mb-12 text-center'>Membership Tiers</h3>
             <div className='grid md:grid-cols-4 gap-6'>
-              {/* VS Tier */}
-              <div className='bg-gray-900/50 border border-gray-700 rounded-xl p-6'>
-                <h4 className='text-xl font-bold text-white mb-2'>VS</h4>
-                <p className='text-sm text-gray-400 mb-4'>Network Governance</p>
-                <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>All area access</li>
-                  <li>Private previews</li>
-                  <li>Co-curation rights</li>
-                </ul>
-              </div>
-
-              {/* VVS1 Tier */}
-              <div className='bg-purple-900/30 border border-purple-500/50 rounded-xl p-6'>
-                <h4 className='text-xl font-bold text-white mb-2'>VVS</h4>
-                <p className='text-sm text-purple-300 mb-4'>Network Stake</p>
-                <ul className='text-sm text-gray-300 space-y-2'>
-                  <li>Exclusive lounge</li>
-                  <li>Early art access</li>
-                  <li>Mixers & networking</li>
-                </ul>
-              </div>
-
               {/* Internally Flawless Tier */}
               <div className='bg-pink-900/30 border border-pink-500/50 rounded-xl p-6'>
                 <h4 className='text-xl font-bold text-white mb-2'>SI</h4>
@@ -327,7 +305,26 @@ export default function TashaBoue() {
                   <li>Curated events</li>
                 </ul>
               </div>
-
+              {/* VS Tier */}
+              <div className='bg-gray-900/50 border border-gray-700 rounded-xl p-6'>
+                <h4 className='text-xl font-bold text-white mb-2'>VS</h4>
+                <p className='text-sm text-gray-400 mb-4'>Network Governance</p>
+                <ul className='text-sm text-gray-300 space-y-2'>
+                  <li>All area access</li>
+                  <li>Private previews</li>
+                  <li>Co-curation rights</li>
+                </ul>
+              </div>
+              {/* VVS1 Tier */}
+              <div className='bg-purple-900/30 border border-purple-500/50 rounded-xl p-6'>
+                <h4 className='text-xl font-bold text-white mb-2'>VVS</h4>
+                <p className='text-sm text-purple-300 mb-4'>Network Stake</p>
+                <ul className='text-sm text-gray-300 space-y-2'>
+                  <li>Exclusive lounge</li>
+                  <li>Early art access</li>
+                  <li>Mixers & networking</li>
+                </ul>
+              </div>
               {/* Flawless Tier */}
               <div className='bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border border-yellow-500/50 rounded-xl p-6'>
                 <h4 className='text-xl font-bold text-white mb-2'>Flawless</h4>
