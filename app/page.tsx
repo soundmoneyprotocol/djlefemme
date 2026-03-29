@@ -189,25 +189,7 @@ export default function TashaBoue() {
         </div>
       </section>
 
-      {/* Content Section */}
-      <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
-        <div className='max-w-4xl mx-auto'>
-          <h2 className='text-4xl md:text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400'>
-            About Tasha Boue
-          </h2>
-          <p className='text-lg text-gray-300 leading-relaxed mb-6'>
-            Tasha Boue is a creative force in music and visual storytelling. Through her unique perspective and artistic vision, she brings passion and authenticity to every project.
-          </p>
-          <p className='text-lg text-gray-300 leading-relaxed'>
-            Watch the videos above to explore her work, creative process, and the stories behind each project.
-          </p>
-        </div>
-      </section>
-    </main>
-  );
-}
-
-      {/* Content Section */}
+      {/* About Section */}
       <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
         <div className='max-w-4xl mx-auto'>
           <div className='mb-16'>
