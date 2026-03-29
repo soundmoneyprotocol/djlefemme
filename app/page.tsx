@@ -1,8 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
+import { Zap } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -447,10 +449,81 @@ export default function TashaBoue() {
           </div>
           
           <div className='grid md:grid-cols-1 gap-8'>
-            <div className='bg-gradient-to-br from-purple-900/30 to-black border border-purple-500/30 rounded-2xl p-8'>
-              <h3 className='text-2xl font-bold text-white mb-4'>Coming Soon</h3>
-              <p className='text-gray-300'>Exclusive music releases and curated playlists featuring Tasha Boué's artistic vision</p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className='bg-gradient-to-br from-neutral-900/80 to-neutral-950/80 border border-neutral-800 rounded-2xl p-6 backdrop-blur-sm space-y-4'
+            >
+              {/* Main Counter */}
+              <div className='space-y-3'>
+                <div className='flex items-center gap-2 mb-2'>
+                  <Zap className='text-[#FD7125]' size={20} />
+                  <span className='text-xs font-semibold text-neutral-400'>BZY EARNINGS</span>
+                </div>
+
+                {/* BZY Balance */}
+                <motion.div
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  className='space-y-1'
+                >
+                  <p className='text-3xl font-bold text-white'>
+                    2,450.50 BZY
+                  </p>
+                  <p className='text-sm text-neutral-400'>Total Balance</p>
+                </motion.div>
+
+                {/* Daily Earnings */}
+                <motion.div
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  className='flex items-center gap-2'
+                >
+                  <div className='w-full h-2 bg-neutral-700 rounded-full overflow-hidden'>
+                    <motion.div
+                      className='h-full bg-gradient-to-r from-[#FD7125] to-[#FF6B35]'
+                      animate={{ width: '45%' }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
+                  <span className='text-sm font-semibold text-[#FD7125] whitespace-nowrap'>
+                    +$45.25 today
+                  </span>
+                </motion.div>
+              </div>
+
+              {/* Features List */}
+              <div className='border-t border-neutral-700 pt-4 space-y-2'>
+                <p className='text-xs font-bold text-[#FD7125] uppercase tracking-wider'>Live Earnings</p>
+                <div className='space-y-2 text-sm text-neutral-300'>
+                  <div className='flex justify-between'>
+                    <span>Streams</span>
+                    <span className='text-white font-semibold'>15,420</span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span>Monthly Revenue</span>
+                    <span className='text-white font-semibold'>+18% boost</span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span>Active Listeners</span>
+                    <span className='text-white font-semibold'>3,421</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Status Indicator */}
+              <motion.div
+                className='text-xs text-neutral-500 flex items-center gap-2 pt-2 border-t border-neutral-700'
+              >
+                <motion.span
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  ● Live
+                </motion.span>
+                <span>SoundMoney Bezy Counter</span>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
