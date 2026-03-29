@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
@@ -17,18 +18,18 @@ interface Video {
 const videos: Video[] = [
   {
     id: '1',
-    src: '/videos/ET_Tash_Jaime_MiniDoc.mp4',
+    src: '/videos/ET_Jaime_Tasha.mp4',
     title: 'Mini Doc'
   },
   {
     id: '2',
-    src: '/videos/ET_Jaime_Tasha_Long_form.mp4',
-    title: 'Long Form'
+    src: '/videos/TashaBoue_MiniDoc_Pt1.mp4',
+    title: 'Mini Doc Part 1'
   },
   {
     id: '3',
-    src: '/videos/TashaBoue_MiniDoc_Pt1.mp4',
-    title: 'Mini Doc Part 1'
+    src: '/videos/ET_Jaime_Tasha_Long_form.mp4',
+    title: 'Long Form'
   }
 ];
 
@@ -215,8 +216,22 @@ const BezyCounterWithVideo: React.FC = () => {
       }
     };
 
-    const handleEnded = () => {
+    const handleEnded = async () => {
       setIsPlaying(false);
+      // Track earnings when video ends
+      try {
+        await fetch('/api/earnings/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            trackTitle: 'Bestie - LeFemme',
+            duration: Math.round(video.currentTime),
+            earnings: sessionEarnings,
+          }),
+        });
+      } catch (error) {
+        console.error('Failed to track earnings:', error);
+      }
     };
 
     video.addEventListener('play', handlePlay);
@@ -238,7 +253,7 @@ const BezyCounterWithVideo: React.FC = () => {
     <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black py-20 px-6'>
       <div className='max-w-4xl mx-auto'>
         <div className='mb-16'>
-          <h2 className='text-5xl md:text-7xl font-black text-white mb-4 text-center'>SoundMoneyOS</h2>
+          <h2 className='text-5xl md:text-7xl font-black text-white mb-4 text-center'>BadBoy | StickgonBang feat LeFemme</h2>
           <p className='text-lg text-gray-300 text-center'>Play and earn with real-time SoundMoneyOS counter</p>
         </div>
 
@@ -351,6 +366,483 @@ const BezyCounterWithVideo: React.FC = () => {
 };
 
 
+// TalentBooking Component
+const TalentBooking: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    eventType: 'wedding',
+    eventDate: '',
+    budget: '',
+    details: '',
+  });
+  const [chatEmail, setChatEmail] = useState('');
+  const [chatMessage, setChatMessage] = useState('');
+  const [chatHistory, setChatHistory] = useState<Array<{ email: string; message: string; timestamp: string; sender: "user" | "tasha" }>>([]);
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
+  const [formMessage, setFormMessage] = useState('');
+  const [isSendingChat, setIsSendingChat] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom of chat
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatHistory]);
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmittingForm(true);
+    setFormMessage('');
+
+    try {
+      const response = await fetch('/api/booking/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormMessage('Booking submitted successfully! Tasha will be in touch soon.');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          eventType: 'wedding',
+          eventDate: '',
+          budget: '',
+          details: '',
+        });
+        setTimeout(() => setFormMessage(''), 5000);
+      } else {
+        setFormMessage('Failed to submit booking. Please try again.');
+      }
+    } catch (error) {
+      setFormMessage('Error submitting booking. Please try again.');
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmittingForm(false);
+    }
+  };
+
+  const handleSendChat = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!chatEmail || !chatMessage) return;
+
+    setIsSendingChat(true);
+
+    try {
+      const response = await fetch('/api/booking/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: chatEmail,
+          message: chatMessage,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setChatHistory(prev => [
+          ...prev,
+          data.userMessage,
+          data.tashaResponse,
+        ]);
+        setChatMessage('');
+      }
+    } catch (error) {
+      console.error('Chat send error:', error);
+    } finally {
+      setIsSendingChat(false);
+    }
+  };
+
+  return (
+    <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-pink-900/10 to-black py-20 px-6'>
+      <div className='max-w-6xl mx-auto'>
+        <div className='mb-16 text-center'>
+          <h2 className='text-5xl md:text-7xl font-black text-white mb-4'>Talent Booking</h2>
+          <p className='text-lg text-gray-300'>Work with Tasha Boué for your next event</p>
+        </div>
+
+        <div className='grid md:grid-cols-2 gap-8'>
+          {/* Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className='bg-gradient-to-br from-pink-900/30 to-black border border-pink-500/30 rounded-2xl p-8 space-y-4'
+          >
+            <h3 className='text-2xl font-bold text-white mb-6'>Send a Booking Request</h3>
+
+            <form onSubmit={handleFormSubmit} className='space-y-4'>
+              <div>
+                <label className='block text-sm font-semibold text-pink-300 mb-2'>Name *</label>
+                <input
+                  type='text'
+                  name='name'
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  placeholder='Your name'
+                  required
+                  className='w-full bg-neutral-900/50 border border-pink-500/30 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500/60 transition'
+                />
+              </div>
+
+              <div>
+                <label className='block text-sm font-semibold text-pink-300 mb-2'>Email *</label>
+                <input
+                  type='email'
+                  name='email'
+                  value={formData.email}
+                  onChange={handleFormChange}
+                  placeholder='your@email.com'
+                  required
+                  className='w-full bg-neutral-900/50 border border-pink-500/30 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500/60 transition'
+                />
+              </div>
+
+              <div>
+                <label className='block text-sm font-semibold text-pink-300 mb-2'>Phone</label>
+                <input
+                  type='tel'
+                  name='phone'
+                  value={formData.phone}
+                  onChange={handleFormChange}
+                  placeholder='(123) 456-7890'
+                  className='w-full bg-neutral-900/50 border border-pink-500/30 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500/60 transition'
+                />
+              </div>
+
+              <div>
+                <label className='block text-sm font-semibold text-pink-300 mb-2'>Event Type *</label>
+                <select
+                  name='eventType'
+                  value={formData.eventType}
+                  onChange={handleFormChange}
+                  required
+                  className='w-full bg-neutral-900/50 border border-pink-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-pink-500/60 transition'
+                >
+                  <option value='wedding'>Wedding</option>
+                  <option value='corporate'>Corporate Event</option>
+                  <option value='birthday'>Birthday Party</option>
+                  <option value='private'>Private Event</option>
+                  <option value='festival'>Festival/Concert</option>
+                  <option value='other'>Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className='block text-sm font-semibold text-pink-300 mb-2'>Event Date</label>
+                <input
+                  type='date'
+                  name='eventDate'
+                  value={formData.eventDate}
+                  onChange={handleFormChange}
+                  className='w-full bg-neutral-900/50 border border-pink-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-pink-500/60 transition'
+                />
+              </div>
+
+              <div>
+                <label className='block text-sm font-semibold text-pink-300 mb-2'>Budget</label>
+                <input
+                  type='number'
+                  name='budget'
+                  value={formData.budget}
+                  onChange={handleFormChange}
+                  placeholder='Enter budget in USD'
+                  className='w-full bg-neutral-900/50 border border-pink-500/30 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500/60 transition'
+                />
+              </div>
+
+              <div>
+                <label className='block text-sm font-semibold text-pink-300 mb-2'>Event Details *</label>
+                <textarea
+                  name='details'
+                  value={formData.details}
+                  onChange={handleFormChange}
+                  placeholder='Tell us about your event...'
+                  required
+                  rows={4}
+                  className='w-full bg-neutral-900/50 border border-pink-500/30 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500/60 transition resize-none'
+                />
+              </div>
+
+              {formMessage && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className={`p-3 rounded-lg text-sm ${
+                    formMessage.includes('successfully')
+                      ? 'bg-green-500/20 border border-green-500/50 text-green-300'
+                      : 'bg-red-500/20 border border-red-500/50 text-red-300'
+                  }`}
+                >
+                  {formMessage}
+                </motion.div>
+              )}
+
+              <motion.button
+                type='submit'
+                disabled={isSubmittingForm}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className='w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50'
+              >
+                {isSubmittingForm ? 'Submitting...' : 'Send Booking Request'}
+              </motion.button>
+            </form>
+          </motion.div>
+
+          {/* Chat Interface */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className='bg-gradient-to-br from-purple-900/30 to-black border border-purple-500/30 rounded-2xl p-8 space-y-4 flex flex-col h-[600px] md:h-auto'
+          >
+            <h3 className='text-2xl font-bold text-white mb-4'>Chat with Tasha</h3>
+
+            {/* Chat History */}
+            <div className='flex-1 space-y-3 overflow-y-auto mb-4 bg-neutral-900/20 rounded-lg p-4'>
+              {chatHistory.length === 0 ? (
+                <p className='text-gray-400 text-sm text-center mt-4'>Start a conversation!</p>
+              ) : (
+                <>
+                  {chatHistory.map((msg, idx) => (
+                    <div
+                      key={idx}
+                      className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-xs px-4 py-2 rounded-lg text-sm ${
+                          msg.sender === 'user'
+                            ? 'bg-purple-500 text-white'
+                            : 'bg-neutral-700 text-gray-200'
+                        }`}
+                      >
+                        {msg.message}
+                      </div>
+                    </div>
+                  ))}
+                  <div ref={chatEndRef} />
+                </>
+              )}
+            </div>
+
+            {/* Email Input */}
+            <div>
+              <label className='block text-sm font-semibold text-purple-300 mb-2'>Your Email</label>
+              <input
+                type='email'
+                value={chatEmail}
+                onChange={(e) => setChatEmail(e.target.value)}
+                placeholder='your@email.com'
+                className='w-full bg-neutral-900/50 border border-purple-500/30 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/60 transition'
+              />
+            </div>
+
+            {/* Chat Input */}
+            <form onSubmit={handleSendChat} className='flex gap-2'>
+              <textarea
+                value={chatMessage}
+                onChange={(e) => setChatMessage(e.target.value)}
+                placeholder='Type your message...'
+                rows={2}
+                className='flex-1 bg-neutral-900/50 border border-purple-500/30 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/60 transition resize-none'
+              />
+              <motion.button
+                type='submit'
+                disabled={isSendingChat || !chatEmail || !chatMessage}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className='bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition disabled:opacity-50 flex items-center gap-2'
+              >
+                <span>Send</span>
+              </motion.button>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+// BezyCounterWithVideo2 Component
+const BezyCounterWithVideo2: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [baseBalance, setBaseBalance] = useState(1850.25);
+  const [sessionEarnings, setSessionEarnings] = useState(0);
+  const [earningsPerSecond] = useState(0.15); // Earnings per second during playback
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    const video = videoRef.current;
+    
+    const handlePlay = () => {
+      setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
+    };
+
+    const handleTimeUpdate = () => {
+      if (isPlaying && video.duration) {
+        const secondsPlayed = video.currentTime;
+        const earnings = secondsPlayed * earningsPerSecond;
+        setSessionEarnings(earnings);
+      }
+    };
+
+    const handleEnded = () => {
+      setIsPlaying(false);
+    };
+
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, [isPlaying, earningsPerSecond]);
+
+  const totalBalance = baseBalance + sessionEarnings;
+
+  return (
+    <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-blue-900/10 to-black py-20 px-6'>
+      <div className='max-w-4xl mx-auto'>
+        <div className='mb-16'>
+          <h2 className='text-5xl md:text-7xl font-black text-white mb-4 text-center'>Bestie - LeFemme</h2>
+          <p className='text-lg text-gray-300 text-center'>Stream Single to earn rewards</p>
+        </div>
+
+        <div className='grid md:grid-cols-1 gap-8'>
+          {/* Video Player */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className='bg-gradient-to-br from-neutral-900/80 to-neutral-950/80 border border-neutral-800 rounded-2xl overflow-hidden backdrop-blur-sm'
+          >
+            <div className='relative bg-black'>
+              <video
+                ref={videoRef}
+                className='w-full h-auto max-h-96 object-cover'
+                controls
+                playsInline
+              >
+                <source src='/videos/bestie-lefemme.MP4' type='video/mp4' />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            {/* Counter Overlay */}
+            <div className='p-6 space-y-4'>
+              {/* Main Counter */}
+              <div className='space-y-3'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-2'>
+                    <Zap className='text-[#FD7125]' size={20} />
+                    <span className='text-xs font-semibold text-neutral-400'>REAL-TIME EARNINGS</span>
+                  </div>
+                  {isPlaying && (
+                    <motion.span
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                      className='text-xs font-bold text-green-400'
+                    >
+                      ● EARNING
+                    </motion.span>
+                  )}
+                </div>
+
+                {/* BZY Balance */}
+                <motion.div
+                  key={totalBalance}
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  className='space-y-1'
+                >
+                  <p className='text-4xl font-bold text-white'>
+                    {totalBalance.toFixed(2)} BZY
+                  </p>
+                  <p className='text-sm text-neutral-400'>
+                    Base: {baseBalance.toFixed(2)} BZY + Session: +{sessionEarnings.toFixed(2)} BZY
+                  </p>
+                </motion.div>
+
+                {/* Earnings Per Second */}
+                <motion.div
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  className='flex items-center gap-2'
+                >
+                  <div className='w-full h-2 bg-neutral-700 rounded-full overflow-hidden'>
+                    <motion.div
+                      className='h-full bg-gradient-to-r from-[#FD7125] to-[#FF6B35]'
+                      animate={{ width: isPlaying ? '100%' : '0%' }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </div>
+                  <span className='text-sm font-semibold text-[#FD7125] whitespace-nowrap'>
+                    {earningsPerSecond.toFixed(2)} BZY/s
+                  </span>
+                </motion.div>
+              </div>
+
+              {/* Session Stats */}
+              <div className='border-t border-neutral-700 pt-4 space-y-2'>
+                <p className='text-xs font-bold text-[#FD7125] uppercase tracking-wider'>Session Stats</p>
+                <div className='space-y-2 text-sm text-neutral-300'>
+                  <div className='flex justify-between'>
+                    <span>Playback Time</span>
+                    <span className='text-white font-semibold'>
+                      {videoRef.current ? Math.floor(videoRef.current.currentTime / 60) : 0}:{String((videoRef.current ? Math.floor(videoRef.current.currentTime % 60) : 0)).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span>Session Earnings</span>
+                    <span className='text-green-400 font-semibold'>+${(sessionEarnings * 2.4).toFixed(2)}</span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span>Video Status</span>
+                    <span className='text-white font-semibold'>{isPlaying ? '▶ Playing' : '⏸ Paused'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Status Indicator */}
+              <motion.div
+                className='text-xs text-neutral-500 flex items-center gap-2 pt-2 border-t border-neutral-700'
+              >
+                <span>Powered by SoundMoney Counter earn streaming rewards</span>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
 export default function TashaBoue() {
   const containerRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -418,14 +910,15 @@ export default function TashaBoue() {
   }, []);
 
   return (
-    <main className='bg-black text-white overflow-x-hidden'>
+    <main className='bg-white text-black dark:bg-black dark:text-white overflow-x-hidden transition-colors'>
+      <ThemeToggle />
       {/* Hero Section */}
       <section
         ref={containerRef}
-        className='relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden'
+        className='relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white dark:bg-black'
       >
         {/* Background gradient */}
-        <div className='absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-black opacity-60' />
+        <div className='absolute inset-0 bg-gradient-to-b from-gray-100 via-white to-white dark:from-gray-900 dark:via-black dark:to-black opacity-60' />
 
         {/* Title Section */}
         <div
@@ -500,7 +993,7 @@ export default function TashaBoue() {
       </section>
 
       {/* About Section */}
-      <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
+      <section className='relative z-10 min-h-screen bg-white dark:bg-black py-20 px-6'>
         <div className='max-w-4xl mx-auto'>
           <div className='mb-16'>
             <h2 className='text-3xl md:text-4xl font-bold mb-4 text-white'>
@@ -553,7 +1046,7 @@ export default function TashaBoue() {
       </section>
 
       {/* HouseDAO Pitch Deck Section */}
-      <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
+      <section className='relative z-10 min-h-screen bg-white dark:bg-black py-20 px-6'>
         <div className='max-w-4xl mx-auto'>
           <div className='mb-12'>
             <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Explore the Vision</h2>
@@ -620,7 +1113,7 @@ export default function TashaBoue() {
       </section>
 
       {/* Events Calendar Section */}
-      <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
+      <section className='relative z-10 min-h-screen bg-white dark:bg-black py-20 px-6'>
         <div className='max-w-4xl mx-auto'>
           <div className='mb-12'>
             <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>VVS Flawless Experiences</h2>
@@ -759,268 +1252,15 @@ export default function TashaBoue() {
       </section>
 
 
-      {/* Music Section with Video & Earnings */}
-
-// TalentBooking Component
-const TalentBooking: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    eventType: '',
-    eventDate: '',
-    budget: '',
-    details: '',
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [chatMessages, setChatMessages] = useState<Array<{ sender: string; text: string }>>([
-    { sender: 'Tasha', text: 'Hi! Thanks for reaching out about booking. How can I help you?' },
-  ]);
-  const [chatInput, setChatInput] = useState('');
-
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('/api/booking/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setSubmitted(true);
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          eventType: '',
-          eventDate: '',
-          budget: '',
-          details: '',
-        });
-        setTimeout(() => setSubmitted(false), 3000);
-      }
-    } catch (error) {
-      console.error('Failed to submit booking form:', error);
-    }
-  };
-
-  const handleChatSend = async () => {
-    if (!chatInput.trim()) return;
-
-    const userMessage = chatInput;
-    setChatMessages(prev => [...prev, { sender: 'You', text: userMessage }]);
-    setChatInput('');
-
-    try {
-      const response = await fetch('/api/booking/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: userMessage,
-          email: formData.email || 'guest@example.com',
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setChatMessages(prev => [...prev, { sender: 'Tasha', text: data.reply }]);
-      }
-    } catch (error) {
-      console.error('Failed to send chat message:', error);
-    }
-  };
-
-  return (
-    <section className='relative z-10 bg-gradient-to-b from-black via-blue-900/10 to-black py-20 px-6'>
-      <div className='max-w-6xl mx-auto'>
-        <div className='mb-16'>
-          <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Talent Booking</h2>
-          <p className='text-lg text-gray-300 text-center'>Book Tasha for your next event or collaboration</p>
-        </div>
-
-        <div className='grid md:grid-cols-2 gap-8'>
-          {/* Booking Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className='bg-gradient-to-br from-blue-900/30 to-black border border-blue-500/30 rounded-2xl p-8 space-y-6'
-          >
-            <div>
-              <h3 className='text-2xl font-bold text-white mb-6'>Event Details</h3>
-              <form onSubmit={handleFormSubmit} className='space-y-4'>
-                <div>
-                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Name</label>
-                  <input
-                    type='text'
-                    name='name'
-                    value={formData.name}
-                    onChange={handleFormChange}
-                    required
-                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
-                    placeholder='Your name'
-                  />
-                </div>
-
-                <div>
-                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Email</label>
-                  <input
-                    type='email'
-                    name='email'
-                    value={formData.email}
-                    onChange={handleFormChange}
-                    required
-                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
-                    placeholder='your@email.com'
-                  />
-                </div>
-
-                <div>
-                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Phone</label>
-                  <input
-                    type='tel'
-                    name='phone'
-                    value={formData.phone}
-                    onChange={handleFormChange}
-                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
-                    placeholder='+1 (555) 000-0000'
-                  />
-                </div>
-
-                <div>
-                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Event Type</label>
-                  <select
-                    name='eventType'
-                    value={formData.eventType}
-                    onChange={handleFormChange}
-                    required
-                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
-                  >
-                    <option value=''>Select event type</option>
-                    <option value='performance'>Performance/DJ</option>
-                    <option value='styling'>Styling/Wardrobe</option>
-                    <option value='consultation'>Consultation</option>
-                    <option value='collaboration'>Collaboration</option>
-                    <option value='other'>Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Event Date</label>
-                  <input
-                    type='date'
-                    name='eventDate'
-                    value={formData.eventDate}
-                    onChange={handleFormChange}
-                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
-                  />
-                </div>
-
-                <div>
-                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Budget (USD)</label>
-                  <input
-                    type='number'
-                    name='budget'
-                    value={formData.budget}
-                    onChange={handleFormChange}
-                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60'
-                    placeholder='5000'
-                  />
-                </div>
-
-                <div>
-                  <label className='block text-sm font-semibold text-gray-300 mb-2'>Details</label>
-                  <textarea
-                    name='details'
-                    value={formData.details}
-                    onChange={handleFormChange}
-                    rows={4}
-                    className='w-full bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60 resize-none'
-                    placeholder='Tell us more about your event...'
-                  />
-                </div>
-
-                <motion.button
-                  type='submit'
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className='w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 rounded-lg transition'
-                >
-                  {submitted ? '✓ Submitted!' : 'Submit Booking Request'}
-                </motion.button>
-              </form>
-            </div>
-          </motion.div>
-
-          {/* Chat Interface */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className='bg-gradient-to-br from-blue-900/30 to-black border border-blue-500/30 rounded-2xl p-8 flex flex-col h-full space-y-4'
-          >
-            <h3 className='text-2xl font-bold text-white'>Chat with Tasha</h3>
-            
-            {/* Chat Messages */}
-            <div className='flex-1 overflow-y-auto space-y-4 min-h-96 bg-neutral-900/30 rounded-lg p-4'>
-              {chatMessages.map((msg, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${msg.sender === 'Tasha' ? 'justify-start' : 'justify-end'}`}
-                >
-                  <div
-                    className={`max-w-xs px-4 py-2 rounded-lg ${
-                      msg.sender === 'Tasha'
-                        ? 'bg-blue-500/30 border border-blue-500/50 text-gray-100'
-                        : 'bg-blue-600/50 border border-blue-600/50 text-white'
-                    }`}
-                  >
-                    <p className='text-xs font-semibold text-blue-300 mb-1'>{msg.sender}</p>
-                    <p className='text-sm'>{msg.text}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Chat Input */}
-            <div className='flex gap-2'>
-              <input
-                type='text'
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleChatSend()}
-                className='flex-1 bg-neutral-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500/60 text-sm'
-                placeholder='Type your message...'
-              />
-              <motion.button
-                onClick={handleChatSend}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className='bg-blue-500 hover:bg-blue-600 text-white font-bold px-6 py-2 rounded-lg transition'
-              >
-                Send
-              </motion.button>
-            </div>
-
-            <p className='text-xs text-gray-400 text-center'>Powered by OpenClaw - Email & CRM Management</p>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 
+      {/* Talent Booking Section */}
       <TalentBooking />
 
+      {/* Bestie SoundMoneyOS Counter */}
+      <BezyCounterWithVideo2 />
+
+      {/* Music Section with Video & Earnings */}
       <BezyCounterWithVideo />
 
 

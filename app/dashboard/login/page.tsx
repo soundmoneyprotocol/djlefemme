@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -68,7 +70,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-black via-purple-900 to-black flex items-center justify-center px-4 py-12'>
+    <div className='min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-gray-50 dark:from-black dark:via-purple-900 dark:to-black flex items-center justify-center px-4 py-12'>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -78,7 +80,7 @@ export default function LoginPage() {
           {/* Header */}
           <div className='text-center space-y-2'>
             <h1 className='text-3xl md:text-4xl font-bold text-white'>Dashboard</h1>
-            <p className='text-gray-300'>Tasha Boué Admin Portal</p>
+            <p className='text-gray-700 dark:text-gray-300'>Tasha Boué Admin Portal</p>
           </div>
 
           {/* Login Form */}

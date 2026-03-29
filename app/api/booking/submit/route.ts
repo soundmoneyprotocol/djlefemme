@@ -1,6 +1,7 @@
-export const dynamic = 'force-dynamic';
+import { NextRequest, NextResponse } from 'next/server';
 
-interface BookingRequest {
+// In-memory storage for bookings
+let bookings: Array<{
   name: string;
   email: string;
   phone: string;
@@ -8,60 +9,57 @@ interface BookingRequest {
   eventDate: string;
   budget: string;
   details: string;
+  submittedAt: string;
+}> = [];
+
+export async function GET() {
+  return NextResponse.json({ bookings }, { status: 200 });
 }
 
-// In-memory storage for bookings (in production, use database + OpenClaw integration)
-let bookings: BookingRequest[] = [];
-
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const body: BookingRequest = await request.json();
+    const body = await request.json();
+    const { name, email, phone, eventType, eventDate, budget, details } = body;
 
     // Validate required fields
-    if (!body.name || !body.email || !body.eventType) {
-      return Response.json(
+    if (!name || !email || !eventType || !details) {
+      return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    // Store booking
-    bookings.push(body);
+    const booking = {
+      name,
+      email,
+      phone: phone || '',
+      eventType,
+      eventDate: eventDate || '',
+      budget: budget || '0',
+      details,
+      submittedAt: new Date().toISOString(),
+    };
 
-    // TODO: Integrate with OpenClaw to:
-    // 1. Send confirmation email to client
-    // 2. Send notification to Tasha
-    // 3. Add email to mailing list
-    // 4. Create CRM record for follow-up
+    bookings.push(booking);
 
-    // Example OpenClaw integration (pseudo-code):
-    // await openClaw.sendEmail({
-    //   to: body.email,
-    //   template: 'booking-confirmation',
-    //   data: body
-    // });
-    //
-    // await openClaw.addToList('bookings', body.email);
-    // await openClaw.createContact(body);
+    // TODO: Integrate with OpenClaw for:
+    // - Sending booking confirmation email to Tasha
+    // - Adding contact to mailing list
+    // - Creating CRM record
 
-    return Response.json({
-      success: true,
-      message: 'Booking request submitted successfully',
-      bookingId: bookings.length,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Booking submitted successfully',
+        booking,
+      },
+      { status: 201 }
+    );
   } catch (error) {
     console.error('Booking submission error:', error);
-    return Response.json(
-      { error: 'Failed to submit booking' },
+    return NextResponse.json(
+      { error: 'Failed to process booking' },
       { status: 500 }
     );
   }
-}
-
-export async function GET() {
-  return Response.json({
-    success: true,
-    totalBookings: bookings.length,
-    bookings: bookings,
-  });
 }

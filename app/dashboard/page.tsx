@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -25,7 +27,9 @@ interface ChatMessage {
 export default function DashboardPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
-  const [activeTab, setActiveTab] = useState<'bookings' | 'chats'>('bookings');
+  const [earningsData, setEarningsData] = useState<any>(null);
+  const [earningsLoading, setEarningsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'bookings' | 'chats' | 'earnings'>('bookings');
   const [loading, setLoading] = useState(true);
   const [userEmail, setUserEmail] = useState('');
   const router = useRouter();
@@ -56,9 +60,10 @@ export default function DashboardPage() {
 
   const fetchData = async () => {
     try {
-      const [bookingsRes, chatsRes] = await Promise.all([
+      const [bookingsRes, chatsRes, earningsRes] = await Promise.all([
         fetch('/api/booking/submit'),
         fetch('/api/booking/chat'),
+        fetch('/api/earnings/track'),
       ]);
 
       if (bookingsRes.ok) {
@@ -69,6 +74,11 @@ export default function DashboardPage() {
       if (chatsRes.ok) {
         const chatsData = await chatsRes.json();
         setChatHistory(chatsData.messages || []);
+      }
+
+      if (earningsRes.ok) {
+        const data = await earningsRes.json();
+        setEarningsData(data);
       }
     } catch (error) {
       console.error('Failed to fetch data:', error);
@@ -107,7 +117,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className='min-h-screen bg-gradient-to-br from-black via-purple-900 to-black flex items-center justify-center'>
+      <div className='min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-gray-50 dark:from-black dark:via-purple-900 dark:to-black flex items-center justify-center'>
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity }}
@@ -175,6 +185,21 @@ export default function DashboardPage() {
               <span className='sm:hidden text-xs'>({chatHistory.length})</span>
             </span>
           </motion.button>
+          <motion.button
+            onClick={() => setActiveTab('earnings')}
+            whileHover={{ scale: 1.05 }}
+            className={`pb-2 px-3 sm:px-4 font-semibold transition ${
+              activeTab === 'earnings'
+                ? 'text-green-400 border-b-2 border-green-500'
+                : 'text-gray-400 hover:text-gray-300'
+            }`}
+          >
+            <span className='flex items-center gap-2'>
+              <DollarSign size={18} />
+              <span className='hidden sm:inline'>Earnings</span>
+              <span className='sm:hidden text-xs'>Earnings</span>
+            </span>
+          </motion.button>
         </div>
 
         {/* Content */}
@@ -231,7 +256,7 @@ export default function DashboardPage() {
               {bookings.length === 0 ? (
                 <div className='text-center py-12 bg-neutral-900/30 border border-purple-500/20 rounded-lg'>
                   <Mail size={48} className='mx-auto text-gray-500 mb-4' />
-                  <p className='text-gray-400'>No bookings yet</p>
+                  <p className='text-gray-600 dark:text-gray-400'>No bookings yet</p>
                 </div>
               ) : (
                 bookings.map((booking, idx) => (
@@ -253,7 +278,7 @@ export default function DashboardPage() {
                       </div>
                       <div>
                         <p className='text-xs text-gray-400'>Phone</p>
-                        <p className='text-white'>{booking.phone || 'N/A'}</p>
+                        <p className='text-black dark:text-white'>{booking.phone || 'N/A'}</p>
                       </div>
                       <div>
                         <p className='text-xs text-gray-400'>Event Type</p>
@@ -261,7 +286,7 @@ export default function DashboardPage() {
                       </div>
                       <div>
                         <p className='text-xs text-gray-400'>Event Date</p>
-                        <p className='text-white'>{booking.eventDate || 'TBD'}</p>
+                        <p className='text-black dark:text-white'>{booking.eventDate || 'TBD'}</p>
                       </div>
                       <div>
                         <p className='text-xs text-gray-400'>Budget</p>
@@ -292,7 +317,7 @@ export default function DashboardPage() {
               {chatHistory.length === 0 ? (
                 <div className='text-center py-12 bg-neutral-900/30 border border-blue-500/20 rounded-lg'>
                   <MessageSquare size={48} className='mx-auto text-gray-500 mb-4' />
-                  <p className='text-gray-400'>No messages yet</p>
+                  <p className='text-gray-600 dark:text-gray-400'>No messages yet</p>
                 </div>
               ) : (
                 chatHistory.map((chat, idx) => (
@@ -323,6 +348,92 @@ export default function DashboardPage() {
                     </div>
                   </motion.div>
                 ))
+              )}
+            </motion.div>
+          )}
+
+          {/* Earnings Section */}
+          {activeTab === 'earnings' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className='space-y-4'
+            >
+              {!earningsData ? (
+                <div className='text-center py-12 bg-neutral-900/30 border border-green-500/20 rounded-lg'>
+                  <DollarSign size={48} className='mx-auto text-gray-500 mb-4' />
+                  <p className='text-gray-600 dark:text-gray-400'>No earnings data yet</p>
+                </div>
+              ) : (
+                <>
+                  {/* Summary Stats */}
+                  <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6'>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className='bg-gradient-to-br from-green-900/30 to-black border border-green-500/30 rounded-lg p-4'
+                    >
+                      <p className='text-gray-400 text-xs sm:text-sm'>Total Plays</p>
+                      <p className='text-2xl sm:text-3xl font-bold text-green-400'>{earningsData.summary?.totalPlays || 0}</p>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 }}
+                      className='bg-gradient-to-br from-yellow-900/30 to-black border border-yellow-500/30 rounded-lg p-4'
+                    >
+                      <p className='text-gray-400 text-xs sm:text-sm'>Total Earnings</p>
+                      <p className='text-2xl sm:text-3xl font-bold text-yellow-400'>{(earningsData.summary?.totalEarnings || 0).toFixed(2)} BZY</p>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className='bg-gradient-to-br from-blue-900/30 to-black border border-blue-500/30 rounded-lg p-4'
+                    >
+                      <p className='text-gray-400 text-xs sm:text-sm'>Avg per Play</p>
+                      <p className='text-2xl sm:text-3xl font-bold text-blue-400'>{(earningsData.summary?.averageEarningsPerPlay || 0).toFixed(4)} BZY</p>
+                    </motion.div>
+                  </div>
+
+                  {/* Track Stats */}
+                  {earningsData.tracks?.map((track: any, idx: number) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      className='bg-gradient-to-br from-green-900/20 to-black border border-green-500/30 rounded-lg p-4 sm:p-6 space-y-3'
+                    >
+                      <div className='flex items-start justify-between gap-4'>
+                        <div>
+                          <p className='text-xs text-gray-400'>Track</p>
+                          <p className='text-white font-semibold'>{track.trackTitle}</p>
+                        </div>
+                        <div className='text-right'>
+                          <p className='text-xs text-gray-400'>Last Played</p>
+                          <p className='text-white text-xs'>{track.lastPlayed ? new Date(track.lastPlayed).toLocaleString() : 'Never'}</p>
+                        </div>
+                      </div>
+                      <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+                        <div>
+                          <p className='text-xs text-gray-400'>Play Count</p>
+                          <p className='text-lg font-bold text-green-400'>{track.playCount}</p>
+                        </div>
+                        <div>
+                          <p className='text-xs text-gray-400'>Total Earned</p>
+                          <p className='text-lg font-bold text-yellow-400'>{track.totalEarnings.toFixed(2)} BZY</p>
+                        </div>
+                        <div>
+                          <p className='text-xs text-gray-400'>Avg Earnings</p>
+                          <p className='text-lg font-bold text-blue-400'>
+                            {track.playCount > 0 ? (track.totalEarnings / track.playCount).toFixed(4) : '0.0000'} BZY
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </>
               )}
             </motion.div>
           )}

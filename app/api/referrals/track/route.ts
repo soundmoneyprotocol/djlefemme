@@ -1,98 +1,95 @@
-export const dynamic = 'force-dynamic';
+import { NextRequest, NextResponse } from 'next/server';
 
-// In-memory storage for referrals (in production, use a real database)
-let referralsData: {
-  [key: string]: {
-    totalReferrals: number;
-    bzyEarned: number;
-    conversions: number;
-    lastUpdated: string;
-  };
-} = {
+// In-memory storage for referral data
+const referralData: Record<string, {
+  totalReferrals: number;
+  bzyEarned: number;
+  conversions: number;
+}> = {
   lefemme: {
     totalReferrals: 247,
-    bzyEarned: 1240,
+    bzyEarned: 1240.50,
     conversions: 128,
-    lastUpdated: new Date().toISOString(),
   },
 };
 
-export async function POST(request: Request) {
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const code = searchParams.get('code');
+
+  if (!code) {
+    return NextResponse.json(
+      { error: 'Missing referrer code' },
+      { status: 400 }
+    );
+  }
+
+  const stats = referralData[code] || {
+    totalReferrals: 0,
+    bzyEarned: 0,
+    conversions: 0,
+  };
+
+  return NextResponse.json(
+    {
+      code,
+      data: stats,
+    },
+    { status: 200 }
+  );
+}
+
+export async function POST(request: NextRequest) {
   try {
-    const { referrerCode, userId, eventType } = await request.json();
+    const body = await request.json();
+    const { referrerCode, userId, eventType } = body;
 
     if (!referrerCode) {
-      return Response.json(
+      return NextResponse.json(
         { error: 'Missing referrer code' },
         { status: 400 }
       );
     }
 
-    // Initialize referral data if not exists
-    if (!referralsData[referrerCode]) {
-      referralsData[referrerCode] = {
+    // Initialize data if code doesn't exist
+    if (!referralData[referrerCode]) {
+      referralData[referrerCode] = {
         totalReferrals: 0,
         bzyEarned: 0,
         conversions: 0,
-        lastUpdated: new Date().toISOString(),
       };
     }
 
-    // Track the event
-    const referralRecord = referralsData[referrerCode];
+    const stats = referralData[referrerCode];
 
-    switch (eventType) {
-      case 'click':
-        referralRecord.totalReferrals += 1;
-        break;
-      case 'conversion':
-        referralRecord.conversions += 1;
-        referralRecord.bzyEarned += Math.random() * 10; // Simulate earning
-        break;
-      case 'earning':
-        referralRecord.bzyEarned += parseFloat(request.headers.get('x-amount') || '0');
-        break;
+    // Track referral event
+    if (eventType === 'click' || eventType === 'share') {
+      // Track share/click without counting as conversion
+      stats.totalReferrals += 1;
+    } else if (eventType === 'signup' || eventType === 'conversion') {
+      // Count as conversion
+      stats.totalReferrals += 1;
+      stats.conversions += 1;
+      // Award 10% of typical signing bonus (~120 BZY)
+      stats.bzyEarned += 12;
+    } else if (eventType === 'stream') {
+      // Track streaming rewards (10% of streamer earnings)
+      const earnedBZY = parseFloat((Math.random() * 5 + 0.5).toFixed(2)); // Random between 0.5-5.5 BZY per stream
+      stats.bzyEarned += earnedBZY;
     }
 
-    referralRecord.lastUpdated = new Date().toISOString();
-
-    return Response.json({
-      success: true,
-      data: referralRecord,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        referrerCode,
+        stats,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Referral tracking error:', error);
-    return Response.json(
+    return NextResponse.json(
       { error: 'Failed to track referral' },
-      { status: 500 }
-    );
-  }
-}
-
-export async function GET(request: Request) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const referrerCode = searchParams.get('code');
-
-    if (!referrerCode) {
-      return Response.json(
-        { error: 'Missing referrer code' },
-        { status: 400 }
-      );
-    }
-
-    const data = referralsData[referrerCode] || {
-      totalReferrals: 0,
-      bzyEarned: 0,
-      conversions: 0,
-      lastUpdated: new Date().toISOString(),
-    };
-
-    return Response.json({ success: true, data });
-  } catch (error) {
-    console.error('Referral fetch error:', error);
-    return Response.json(
-      { error: 'Failed to fetch referral data' },
       { status: 500 }
     );
   }
