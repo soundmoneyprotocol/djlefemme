@@ -187,7 +187,7 @@ const BezyCounterWithVideo: React.FC = () => {
               <motion.div
                 className='text-xs text-neutral-500 flex items-center gap-2 pt-2 border-t border-neutral-700'
               >
-                <span>{isPlaying ? '●' : '○'} SoundMoney Bezy Video Counter</span>
+                <span>Powered by SoundMoney Counter earn streaming rewards</span>
               </motion.div>
             </div>
           </motion.div>
