@@ -332,7 +332,7 @@ export default function TashaBoue() {
                 <ul className='text-sm text-gray-300 space-y-2'>
                   <li>Elite networking</li>
                   <li>Personal escort</li>
-                  <li>VIP experiences</li>
+                  <li>Internally Flawless experiences</li>
                 </ul>
               </div>
             </div>
