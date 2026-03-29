@@ -219,9 +219,9 @@ export default function TashaBoue() {
               </p>
             </div>
 
-            {/* Media & Fashion Consulting Credits */}
+            {/* Fashion Media & Consulting */}
             <div>
-              <h3 className='text-2xl font-bold text-white mb-4'>Media & Fashion Consulting Credits</h3>
+              <h3 className='text-2xl font-bold text-white mb-4'>Fashion Media & Consulting</h3>
               <p className='text-lg leading-relaxed'>
                 Featured on IMDb for her work in the wardrobe department of <span className='text-white font-semibold'>America's Next Top Model</span>, Tasha's expertise spans film, television, fashion curation, and high-level event production.
               </p>
