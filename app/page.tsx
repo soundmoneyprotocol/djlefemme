@@ -37,11 +37,56 @@ const videos: Video[] = [
 // ReferralSection Component
 const ReferralSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
+  const [stats, setStats] = useState({
+    totalReferrals: 247,
+    bzyEarned: 1240,
+    conversions: 128,
+  });
   const referralLink = 'https://os.soundmoneyprotocol.xyz/profile/lefemme?ref=LEFEMME2024';
 
-  const handleCopy = () => {
+  useEffect(() => {
+    // Fetch referral stats from API
+    const fetchStats = async () => {
+      try {
+        const response = await fetch('/api/referrals/track?code=lefemme');
+        if (response.ok) {
+          const data = await response.json();
+          setStats({
+            totalReferrals: data.data.totalReferrals || stats.totalReferrals,
+            bzyEarned: Math.round(data.data.bzyEarned || stats.bzyEarned),
+            conversions: data.data.conversions || stats.conversions,
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch referral stats:', error);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  const conversionRate = stats.totalReferrals > 0 
+    ? Math.round((stats.conversions / stats.totalReferrals) * 100)
+    : 0;
+
+  const handleCopy = async () => {
     navigator.clipboard.writeText(referralLink);
     setCopied(true);
+    
+    // Track the copy/share action
+    try {
+      await fetch('/api/referrals/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          referrerCode: 'lefemme',
+          eventType: 'click',
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to track referral click:', error);
+    }
+    
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -193,7 +238,7 @@ const BezyCounterWithVideo: React.FC = () => {
     <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black py-20 px-6'>
       <div className='max-w-4xl mx-auto'>
         <div className='mb-16'>
-          <h2 className='text-5xl md:text-7xl font-black text-white mb-4 text-center'>Music</h2>
+          <h2 className='text-5xl md:text-7xl font-black text-white mb-4 text-center'>SoundMoneyOS</h2>
           <p className='text-lg text-gray-300 text-center'>Play and earn with real-time SoundMoneyOS counter</p>
         </div>
 
