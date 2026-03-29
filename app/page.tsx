@@ -246,7 +246,7 @@ export default function TashaBoue() {
           </div>
 
           {/* Three Pillars */}
-          <div className='grid md:grid-cols-3 gap-8 mb-20'>
+          <div className='grid md:grid-cols-4 gap-8 mb-20'>
             {/* Pillar 1 */}
             <div className='bg-gradient-to-br from-purple-900/30 to-black border border-purple-500/30 rounded-2xl p-8 hover:border-purple-400/60 transition'>
               <h3 className='text-3xl font-bold text-white mb-4'>Cut</h3>
@@ -277,6 +277,16 @@ export default function TashaBoue() {
               </p>
               <p className='text-gray-400 text-sm mt-4'>
                 Elite networks, investor dinners, and transformational partnerships
+              </p>
+            </div>
+            {/* Pillar 4 */}
+            <div className='bg-gradient-to-br from-emerald-900/30 to-black border border-emerald-500/30 rounded-2xl p-8 hover:border-emerald-400/60 transition'>
+              <h3 className='text-3xl font-bold text-white mb-4'>Clarity</h3>
+              <p className='text-gray-300 text-lg'>
+                Clarity of Vision
+              </p>
+              <p className='text-gray-400 text-sm mt-4'>
+                Strategic transparency, purpose-driven experiences, and authentic connections
               </p>
             </div>
           </div>
