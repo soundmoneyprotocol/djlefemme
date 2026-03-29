@@ -1,42 +1,71 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { signIn, getSession } from '@/lib/supabase';
 
 export default function LoginPage() {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const router = useRouter();
+
+  // Check if already logged in
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const { data } = await getSession();
+        if (data?.session) {
+          router.push('/dashboard');
+        }
+      } catch (err) {
+        console.error('Session check error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkSession();
+  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
+    setIsLoggingIn(true);
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
-      });
+      const { data, error: signInError } = await signIn(email, password);
 
-      if (response.ok) {
-        // Store auth token in localStorage
-        const data = await response.json();
-        localStorage.setItem('dashboardAuth', data.token);
+      if (signInError) {
+        setError(signInError.message || 'Login failed. Please check your credentials.');
+        return;
+      }
+
+      if (data?.session) {
         router.push('/dashboard');
-      } else {
-        setError('Invalid password');
       }
     } catch (error) {
-      setError('Login failed. Please try again.');
+      setError('An error occurred. Please try again.');
       console.error('Login error:', error);
     } finally {
-      setLoading(false);
+      setIsLoggingIn(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className='min-h-screen bg-gradient-to-br from-black via-purple-900 to-black flex items-center justify-center'>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className='w-12 h-12 border-4 border-purple-500/30 border-t-purple-500 rounded-full'
+        />
+      </div>
+    );
+  }
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-black via-purple-900 to-black flex items-center justify-center px-4 py-12'>
@@ -56,14 +85,29 @@ export default function LoginPage() {
           <form onSubmit={handleLogin} className='space-y-4'>
             <div>
               <label className='block text-sm font-semibold text-gray-300 mb-2'>
-                Admin Password
+                Email
+              </label>
+              <input
+                type='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder='your@email.com'
+                className='w-full bg-neutral-900/50 border border-purple-500/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/60 transition'
+                required
+              />
+            </div>
+
+            <div>
+              <label className='block text-sm font-semibold text-gray-300 mb-2'>
+                Password
               </label>
               <input
                 type='password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder='Enter dashboard password'
+                placeholder='Enter your password'
                 className='w-full bg-neutral-900/50 border border-purple-500/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/60 transition'
+                required
               />
             </div>
 
@@ -79,27 +123,21 @@ export default function LoginPage() {
 
             <motion.button
               type='submit'
-              disabled={loading}
+              disabled={isLoggingIn}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className='w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50'
             >
-              {loading ? 'Logging in...' : 'Login'}
+              {isLoggingIn ? 'Logging in...' : 'Login'}
             </motion.button>
           </form>
 
           {/* Footer */}
-          <div className='text-center text-xs text-gray-400'>
-            <p>Secure admin dashboard</p>
-            <p>For Tasha Boué only</p>
+          <div className='text-center text-xs text-gray-400 space-y-2'>
+            <p>Supabase Authentication</p>
+            <p>SoundMoney Unified Auth</p>
+            <p>© 2024 Tasha Boué • SoundMoneyOS</p>
           </div>
-        </div>
-
-        {/* Background decoration */}
-        <div className='mt-8 text-center'>
-          <p className='text-gray-500 text-sm'>
-            © 2024 Tasha Boué • SoundMoneyOS
-          </p>
         </div>
       </motion.div>
     </div>

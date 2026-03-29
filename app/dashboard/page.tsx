@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { LogOut, Mail, MessageSquare, Calendar, DollarSign } from 'lucide-react';
+import { getSession, signOut } from '@/lib/supabase';
 
 interface Booking {
   name: string;
@@ -26,18 +27,31 @@ export default function DashboardPage() {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [activeTab, setActiveTab] = useState<'bookings' | 'chats'>('bookings');
   const [loading, setLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    // Check authentication
-    const auth = localStorage.getItem('dashboardAuth');
-    if (!auth) {
-      router.push('/dashboard/login');
-      return;
-    }
+    // Check authentication and fetch data
+    const initializeDashboard = async () => {
+      try {
+        const { data, error } = await getSession();
 
-    // Fetch data
-    fetchData();
+        if (error || !data?.session) {
+          router.push('/dashboard/login');
+          return;
+        }
+
+        setUserEmail(data.session.user?.email || '');
+        await fetchData();
+      } catch (error) {
+        console.error('Dashboard init error:', error);
+        router.push('/dashboard/login');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initializeDashboard();
   }, [router]);
 
   const fetchData = async () => {
@@ -58,14 +72,16 @@ export default function DashboardPage() {
       }
     } catch (error) {
       console.error('Failed to fetch data:', error);
-    } finally {
-      setLoading(false);
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('dashboardAuth');
-    router.push('/dashboard/login');
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      router.push('/dashboard/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   const handleExportCSV = (data: any[]) => {
@@ -112,7 +128,7 @@ export default function DashboardPage() {
         <div className='max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between'>
           <div>
             <h1 className='text-xl sm:text-2xl font-bold text-white'>Dashboard</h1>
-            <p className='text-xs sm:text-sm text-gray-400'>Tasha Boué Admin Portal</p>
+            <p className='text-xs sm:text-sm text-gray-400'>{userEmail}</p>
           </div>
           <motion.button
             onClick={handleLogout}
