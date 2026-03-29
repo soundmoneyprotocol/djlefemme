@@ -227,12 +227,6 @@ export default function TashaBoue() {
               </p>
             </div>
 
-            {/* Vision */}
-            <div className='bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-500/30 rounded-xl p-8 mt-12'>
-              <p className='text-lg leading-relaxed italic'>
-                Through her work with HouseDAO and beyond, Tasha continues to redefine luxury, style, and creative excellence—bridging the worlds of entertainment, fashion, and cutting-edge design.
-              </p>
-            </div>
           </div>
         </div>
       </section>
