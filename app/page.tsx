@@ -33,6 +33,114 @@ const videos: Video[] = [
 ];
 
 
+
+// ReferralSection Component
+const ReferralSection: React.FC = () => {
+  const [copied, setCopied] = useState(false);
+  const referralLink = 'https://os.soundmoneyprotocol.xyz/profile/lefemme?ref=LEFEMME2024';
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(referralLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <section className='relative z-10 bg-gradient-to-b from-black via-green-900/10 to-black py-20 px-6'>
+      <div className='max-w-4xl mx-auto'>
+        <div className='mb-12'>
+          <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Earn with Referrals</h2>
+          <p className='text-lg text-gray-300 text-center'>Share your unique referral link and earn streaming rewards</p>
+        </div>
+
+        <div className='grid md:grid-cols-1 gap-8'>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className='bg-gradient-to-br from-green-900/30 to-black border border-green-500/30 rounded-2xl p-8 space-y-6'
+          >
+            {/* Referral Link Box */}
+            <div className='space-y-3'>
+              <p className='text-sm font-semibold text-green-400 uppercase tracking-wider'>Your Referral Link</p>
+              <div className='relative'>
+                <input
+                  type='text'
+                  value={referralLink}
+                  readOnly
+                  className='w-full bg-neutral-900/50 border border-green-500/30 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none'
+                />
+                <motion.button
+                  onClick={handleCopy}
+                  animate={{ backgroundColor: copied ? '#10b981' : '#16a34a' }}
+                  className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm font-semibold transition'
+                >
+                  {copied ? 'Copied!' : 'Copy'}
+                </motion.button>
+              </div>
+            </div>
+
+            {/* Referral Stats */}
+            <div className='border-t border-green-500/20 pt-6 space-y-3'>
+              <p className='text-sm font-semibold text-green-400 uppercase tracking-wider'>Referral Stats</p>
+              <div className='grid grid-cols-3 gap-4'>
+                <div className='bg-neutral-900/50 border border-green-500/20 rounded-lg p-4 text-center'>
+                  <p className='text-2xl font-bold text-green-400'>247</p>
+                  <p className='text-xs text-gray-400 mt-1'>Total Referrals</p>
+                </div>
+                <div className='bg-neutral-900/50 border border-green-500/20 rounded-lg p-4 text-center'>
+                  <p className='text-2xl font-bold text-green-400'>1,240</p>
+                  <p className='text-xs text-gray-400 mt-1'>BZY Earned</p>
+                </div>
+                <div className='bg-neutral-900/50 border border-green-500/20 rounded-lg p-4 text-center'>
+                  <p className='text-2xl font-bold text-green-400'>52%</p>
+                  <p className='text-xs text-gray-400 mt-1'>Conversion Rate</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Benefits */}
+            <div className='border-t border-green-500/20 pt-6 space-y-3'>
+              <p className='text-sm font-semibold text-green-400 uppercase tracking-wider'>Referral Benefits</p>
+              <ul className='space-y-2 text-sm text-gray-300'>
+                <li className='flex items-center gap-2'>
+                  <span className='text-green-400'>✓</span>
+                  <span>Earn 10% of referred user's streaming earnings</span>
+                </li>
+                <li className='flex items-center gap-2'>
+                  <span className='text-green-400'>✓</span>
+                  <span>Unlimited referral earning potential</span>
+                </li>
+                <li className='flex items-center gap-2'>
+                  <span className='text-green-400'>✓</span>
+                  <span>Real-time tracking dashboard</span>
+                </li>
+                <li className='flex items-center gap-2'>
+                  <span className='text-green-400'>✓</span>
+                  <span>Weekly BZY payouts to your wallet</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* CTA */}
+            <div className='border-t border-green-500/20 pt-6'>
+              <a
+                href='https://os.soundmoneyprotocol.xyz/profile/lefemme'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 rounded-lg transition text-center inline-block'
+              >
+                View Full Dashboard →
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
 // BezyCounterWithVideo Component
 const BezyCounterWithVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -609,6 +717,8 @@ export default function TashaBoue() {
       {/* Music Section with Video & Earnings */}
       <BezyCounterWithVideo />
 
+
+      <ReferralSection />
       {/* Social Links Section */}
       <section className='relative z-10 bg-black py-20 px-6'>
         <div className='max-w-4xl mx-auto'>
