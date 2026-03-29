@@ -403,6 +403,30 @@ export default function TashaBoue() {
         </div>
       </section>
 
+
+      {/* HouseDAO Dinners Section */}
+      <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black py-20 px-6'>
+        <div className='max-w-4xl mx-auto'>
+          <div className='mb-12'>
+            <h2 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent mb-4 text-center'>HouseDAO Dinners</h2>
+            <p className='text-lg text-gray-300 text-center'>Curated culinary experiences and strategic networking for community leaders</p>
+          </div>
+          
+          <div className='flex justify-center'>
+            <iframe 
+              src="https://luma.com/embed/calendar/cal-YjBaEbhdv11tv4G/events"
+              width="600"
+              height="450"
+              frameBorder="0"
+              style={{ border: '1px solid #bfcbda88', borderRadius: '4px' }}
+              allowFullScreen
+              aria-hidden="false"
+              tabIndex={0}
+            />
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }
