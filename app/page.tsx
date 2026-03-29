@@ -360,7 +360,7 @@ export default function TashaBoue() {
       <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
         <div className='max-w-4xl mx-auto'>
           <div className='mb-12'>
-            <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Upcoming Events</h2>
+            <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>VVS Flawless Experiences</h2>
             <p className='text-lg text-gray-300 text-center'>Explore VVS Flawless Experiences events and join our elite community</p>
           </div>
           
