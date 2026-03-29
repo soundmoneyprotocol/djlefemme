@@ -130,7 +130,7 @@ const ReferralSection: React.FC = () => {
                 rel='noopener noreferrer'
                 className='w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 rounded-lg transition text-center inline-block'
               >
-                View Full Dashboard →
+                View Profile →
               </a>
             </div>
           </motion.div>
