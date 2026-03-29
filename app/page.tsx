@@ -309,7 +309,7 @@ export default function TashaBoue() {
 
               {/* Internally Flawless Tier */}
               <div className='bg-pink-900/30 border border-pink-500/50 rounded-xl p-6'>
-                <h4 className='text-xl font-bold text-white mb-2'>IF</h4>
+                \<h4 className='text-xl font-bold text-white mb-2'>SI</h4>
                 <p className='text-sm text-pink-300 mb-4'>Network Governance</p>
                 <ul className='text-sm text-gray-300 space-y-2'>
                   <li>All area access</li>
