@@ -298,6 +298,29 @@ export default function TashaBoue() {
         </div>
       </section>
 
+      {/* Events Calendar Section */}
+      <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
+        <div className='max-w-4xl mx-auto'>
+          <div className='mb-12'>
+            <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>VVS Flawless Experiences</h2>
+            <p className='text-lg text-gray-300 text-center'>Explore VVS Flawless Experiences events and join our elite community</p>
+          </div>
+          
+          <div className='flex justify-center'>
+            <iframe 
+              src="https://luma.com/embed/calendar/cal-sQpCrHGuw2VZD3O/events"
+              width="600"
+              height="450"
+              frameBorder="0"
+              style={{ border: '1px solid #bfcbda88', borderRadius: '4px' }}
+              allowFullScreen
+              aria-hidden="false"
+              tabIndex={0}
+            />
+          </div>
+        </div>
+      </section>
+
       {/* VVS Flawless Experiences Section */}
       <section className='relative z-10 min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black py-20 px-6'>
         <div className='max-w-6xl mx-auto'>
@@ -413,31 +436,6 @@ export default function TashaBoue() {
           </div>
         </div>
       </section>
-
-
-      {/* Events Calendar Section */}
-      <section className='relative z-10 min-h-screen bg-black py-20 px-6'>
-        <div className='max-w-4xl mx-auto'>
-          <div className='mb-12'>
-            <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>VVS Flawless Experiences</h2>
-            <p className='text-lg text-gray-300 text-center'>Explore VVS Flawless Experiences events and join our elite community</p>
-          </div>
-          
-          <div className='flex justify-center'>
-            <iframe 
-              src="https://luma.com/embed/calendar/cal-sQpCrHGuw2VZD3O/events"
-              width="600"
-              height="450"
-              frameBorder="0"
-              style={{ border: '1px solid #bfcbda88', borderRadius: '4px' }}
-              allowFullScreen
-              aria-hidden="false"
-              tabIndex={0}
-            />
-          </div>
-        </div>
-      </section>
-
 
     </main>
   );
