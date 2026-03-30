@@ -1144,7 +1144,7 @@ export default function TashaBoue() {
               Flawless Experiences
             </p>
             <p className='text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto'>
-              "Cut, Color, Carat, Clarity"—An exclusive luxury event network redefining curated experiences
+              "Cut, Color, Carat, Clarity"—An exclusive luxe event network redefining curated experiences
             </p>
           </div>
 
