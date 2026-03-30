@@ -1070,7 +1070,7 @@ export default function TashaBoue() {
         <div className='max-w-4xl mx-auto'>
           <div className='mb-12'>
             <h2 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent mb-4 text-center'>HouseDAO Dinners</h2>
-            <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Curated culinary experiences and strategic networking for community leaders</p>
+            <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Curated culinary experiences and strategic networking for founders & Investor</p>
           </div>
           
           <div className='flex justify-center'>
