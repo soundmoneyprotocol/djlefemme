@@ -421,7 +421,10 @@ export default function DashboardPage() {
                         </div>
                         <div>
                           <p className='text-xs text-gray-400'>Total Earned</p>
-                          <p className='text-lg font-bold text-yellow-400'>{track.totalEarnings.toFixed(2)} BZY</p>
+                          <div className='space-y-1'>
+                            <p className='text-lg font-bold text-yellow-400'>{track.totalEarnings.toFixed(2)} BZY</p>
+                            <p className='text-sm font-semibold text-green-400'>${(track.totalEarnings * 2.4).toFixed(2)} USD</p>
+                          </div>
                         </div>
                         <div>
                           <p className='text-xs text-gray-400'>Avg Earnings</p>
