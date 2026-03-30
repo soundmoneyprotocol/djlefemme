@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { signIn, getSession } from '../../../lib/supabase';
+import { isAdminUser } from '../../../lib/adminConfig';
+import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -14,6 +16,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const notAdminError = searchParams.get('error') === 'not_admin';
 
   // Check if already logged in
   useEffect(() => {
@@ -47,6 +51,12 @@ export default function LoginPage() {
       }
 
       if (data?.session) {
+        // Check if user is admin
+        const userEmail = data.session.user?.email;
+        if (!isAdminUser(userEmail)) {
+          setError('Admin access required. Your email is not authorized to access this dashboard.');
+          return;
+        }
         router.push('/dashboard');
       }
     } catch (error) {

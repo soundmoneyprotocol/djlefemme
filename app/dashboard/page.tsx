@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { LogOut, Mail, MessageSquare, Calendar, DollarSign } from 'lucide-react';
 import { getSession, signOut } from '../../lib/supabase';
+import { isAdminUser } from '../../lib/adminConfig';
 
 interface Booking {
   name: string;
@@ -32,6 +33,7 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<'bookings' | 'chats' | 'earnings'>('bookings');
   const [loading, setLoading] = useState(true);
   const [userEmail, setUserEmail] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -45,7 +47,16 @@ export default function DashboardPage() {
           return;
         }
 
-        setUserEmail(data.session.user?.email || '');
+        const email = data.session.user?.email || '';
+        setUserEmail(email);
+        setIsAdmin(isAdminUser(email));
+        
+        // Redirect if not admin
+        if (!isAdminUser(email)) {
+          router.push('/dashboard/login?error=not_admin');
+          return;
+        }
+        
         await fetchData();
       } catch (error) {
         console.error('Dashboard init error:', error);
