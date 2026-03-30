@@ -427,9 +427,9 @@ export default function DashboardPage() {
                           </div>
                         </div>
                         <div>
-                          <p className='text-xs text-gray-400'>Avg Earnings</p>
+                          <p className='text-xs text-gray-400'>Avg Playtime</p>
                           <p className='text-lg font-bold text-blue-400'>
-                            {track.playCount > 0 ? (track.totalEarnings / track.playCount).toFixed(4) : '0.0000'} BZY
+                            {track.playCount > 0 ? Math.floor((track.totalEarnings / 0.15) / track.playCount) : 0}s
                           </p>
                         </div>
                       </div>
