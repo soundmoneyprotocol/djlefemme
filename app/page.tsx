@@ -6,6 +6,8 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import { Zap } from 'lucide-react';
 
+import { useAnalytics } from '../lib/useAnalytics';
+
 gsap.registerPlugin(ScrollTrigger);
 
 interface Video {
