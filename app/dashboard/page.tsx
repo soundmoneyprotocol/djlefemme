@@ -428,9 +428,15 @@ export default function DashboardPage() {
                         </div>
                         <div>
                           <p className='text-xs text-gray-400'>Avg Playtime</p>
-                          <p className='text-lg font-bold text-blue-400'>
-                            {track.playCount > 0 ? Math.floor((track.totalEarnings / 0.15) / track.playCount) : 0}s
-                          </p>
+                          <div className='space-y-2'>
+                            <p className='text-lg font-bold text-blue-400'>
+                              {track.playCount > 0 ? Math.floor((track.totalEarnings / 0.15) / track.playCount) : 0}s
+                            </p>
+                            <div className='pt-1 border-t border-blue-500/30'>
+                              <p className='text-xs text-gray-400'>Playcount</p>
+                              <p className='text-sm font-semibold text-purple-400'>{track.playCount}</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </motion.div>
