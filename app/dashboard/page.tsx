@@ -37,37 +37,22 @@ export default function DashboardPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Check authentication and fetch data
+    // Load dashboard data (temporarily no auth required)
     const initializeDashboard = async () => {
       try {
-        const { data, error } = await getSession();
-
-        if (error || !data?.session) {
-          router.push('/dashboard/login');
-          return;
-        }
-
-        const email = data.session.user?.email || '';
-        setUserEmail(email);
-        setIsAdmin(isAdminUser(email));
-        
-        // Redirect if not admin
-        if (!isAdminUser(email)) {
-          router.push('/dashboard/login?error=not_admin');
-          return;
-        }
-        
+        // Skip authentication check for now
+        setUserEmail('Admin User');
+        setIsAdmin(true);
         await fetchData();
       } catch (error) {
         console.error('Dashboard init error:', error);
-        router.push('/dashboard/login');
       } finally {
         setLoading(false);
       }
     };
 
     initializeDashboard();
-  }, [router]);
+  }, []);
 
   const fetchData = async () => {
     try {
