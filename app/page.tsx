@@ -1049,7 +1049,7 @@ export default function TashaBoue() {
         <div className='max-w-4xl mx-auto'>
           <div className='mb-12'>
             <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Explore the Vision</h2>
-            <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>HouseDAO Strategic Blueprint</p>
+            <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>luxury meets sovereignty</p>
           </div>
           
           <div className='flex justify-center'>
