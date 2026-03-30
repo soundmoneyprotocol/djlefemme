@@ -380,7 +380,7 @@ const BezyCounterWithVideo: React.FC = () => {
               <motion.div
                 className='text-xs text-gray-600 dark:text-neutral-500 flex items-center gap-2 pt-2 border-t border-gray-400 dark:border-neutral-700'
               >
-                <span>Powered by SoundMoney earn streaming rewards</span>
+                <span>Powered by SoundMoney streaming rewards</span>
               </motion.div>
             </div>
           </motion.div>
@@ -887,7 +887,7 @@ const BezyCounterWithVideo2: React.FC = () => {
               <motion.div
                 className='text-xs text-gray-600 dark:text-neutral-500 flex items-center gap-2 pt-2 border-t border-gray-400 dark:border-neutral-700'
               >
-                <span>Powered by SoundMoney earn streaming rewards</span>
+                <span>Powered by SoundMoney streaming rewards</span>
               </motion.div>
             </div>
           </motion.div>
