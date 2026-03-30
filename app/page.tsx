@@ -306,7 +306,7 @@ const BezyCounterWithVideo: React.FC = () => {
                     {totalBalance.toFixed(2)} BZY
                   </p>
                   <p className='text-sm text-neutral-400'>
-                    Base: {baseBalance.toFixed(2)} BZY + Session: +{sessionEarnings.toFixed(2)} BZY
+                    {baseBalance.toFixed(2)} BZY +{sessionEarnings.toFixed(2)} USD
                   </p>
                 </motion.div>
 
@@ -782,7 +782,7 @@ const BezyCounterWithVideo2: React.FC = () => {
                     {totalBalance.toFixed(2)} BZY
                   </p>
                   <p className='text-sm text-neutral-400'>
-                    Base: {baseBalance.toFixed(2)} BZY + Session: +{sessionEarnings.toFixed(2)} BZY
+                    {baseBalance.toFixed(2)} BZY +{sessionEarnings.toFixed(2)} USD
                   </p>
                 </motion.div>
 
