@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Lock } from 'lucide-react';
 import { getSession } from '../../../lib/supabase';
@@ -17,7 +18,7 @@ declare global {
   }
 }
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
   const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -241,5 +242,13 @@ export default function ResetPasswordPage() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div className='min-h-screen bg-gradient-to-br from-black via-purple-900 to-black flex items-center justify-center'><p className='text-white'>Loading...</p></div>}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }

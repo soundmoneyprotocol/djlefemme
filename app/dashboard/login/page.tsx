@@ -2,14 +2,14 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { signIn, getSession } from '../../../lib/supabase';
 import { isAdminUser } from '../../../lib/adminConfig';
 import { useSearchParams } from 'next/navigation';
 
-export default function LoginPage() {
+function LoginPageContent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -133,6 +133,12 @@ export default function LoginPage() {
               </motion.div>
             )}
 
+            <div className='mb-4'>
+              <a href='/dashboard/reset-password' className='text-purple-400 hover:text-purple-300 text-sm'>
+                Forgot password?
+              </a>
+            </div>
+
             <motion.button
               type='submit'
               disabled={isLoggingIn}
@@ -153,5 +159,13 @@ export default function LoginPage() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className='min-h-screen bg-gradient-to-br from-black via-purple-900 to-black flex items-center justify-center'><p className='text-white'>Loading...</p></div>}>
+      <LoginPageContent />
+    </Suspense>
   );
 }
