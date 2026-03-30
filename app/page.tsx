@@ -189,6 +189,8 @@ const ReferralSection: React.FC = () => {
 // BezyCounterWithVideo Component
 const BezyCounterWithVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const lastTimeRef = useRef(0);
+  const accumulatedEarningsRef = useRef(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [baseBalance, setBaseBalance] = useState(2450.50);
   const [sessionEarnings, setSessionEarnings] = useState(0);
@@ -201,22 +203,31 @@ const BezyCounterWithVideo: React.FC = () => {
     
     const handlePlay = () => {
       setIsPlaying(true);
+      if (videoRef.current) {
+        lastTimeRef.current = videoRef.current.currentTime;
+      }
     };
 
     const handlePause = () => {
       setIsPlaying(false);
+      lastTimeRef.current = 0;
     };
 
     const handleTimeUpdate = () => {
       if (isPlaying && video.duration) {
-        const secondsPlayed = video.currentTime;
-        const earnings = secondsPlayed * earningsPerSecond;
-        setSessionEarnings(earnings);
+        const currentTime = video.currentTime;
+        const deltaTime = Math.max(0, currentTime - lastTimeRef.current);
+        lastTimeRef.current = currentTime;
+        
+        const newEarnings = accumulatedEarningsRef.current + (deltaTime * earningsPerSecond);
+        accumulatedEarningsRef.current = newEarnings;
+        setSessionEarnings(newEarnings);
       }
     };
 
     const handleEnded = async () => {
       setIsPlaying(false);
+      lastTimeRef.current = 0;
       // Track earnings when video ends
       try {
         await fetch('/api/earnings/track', {
@@ -679,6 +690,8 @@ const TalentBooking: React.FC = () => {
 // BezyCounterWithVideo2 Component
 const BezyCounterWithVideo2: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const lastTimeRef = useRef(0);
+  const accumulatedEarningsRef = useRef(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [baseBalance, setBaseBalance] = useState(1850.25);
   const [sessionEarnings, setSessionEarnings] = useState(0);
@@ -691,22 +704,32 @@ const BezyCounterWithVideo2: React.FC = () => {
     
     const handlePlay = () => {
       setIsPlaying(true);
+      if (videoRef.current) {
+        lastTimeRef.current = videoRef.current.currentTime;
+      }
     };
 
     const handlePause = () => {
       setIsPlaying(false);
+      lastTimeRef.current = 0;
     };
 
     const handleTimeUpdate = () => {
       if (isPlaying && video.duration) {
-        const secondsPlayed = video.currentTime;
-        const earnings = secondsPlayed * earningsPerSecond;
-        setSessionEarnings(earnings);
+        const currentTime = video.currentTime;
+        const deltaTime = Math.max(0, currentTime - lastTimeRef.current);
+        lastTimeRef.current = currentTime;
+        
+        const newEarnings = accumulatedEarningsRef.current + (deltaTime * earningsPerSecond);
+        accumulatedEarningsRef.current = newEarnings;
+        setSessionEarnings(newEarnings);
       }
     };
 
     const handleEnded = () => {
       setIsPlaying(false);
+      lastTimeRef.current = 0;
+      // Note: accumulatedEarningsRef is not reset - earnings persist until next session
     };
 
     video.addEventListener('play', handlePlay);
