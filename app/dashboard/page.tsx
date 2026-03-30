@@ -379,7 +379,10 @@ export default function DashboardPage() {
                       className='bg-gradient-to-br from-yellow-900/30 to-black border border-yellow-500/30 rounded-lg p-4'
                     >
                       <p className='text-gray-400 text-xs sm:text-sm'>Total Earnings</p>
-                      <p className='text-2xl sm:text-3xl font-bold text-yellow-400'>{(earningsData.summary?.totalEarnings || 0).toFixed(2)} BZY</p>
+<div className='space-y-1'>
+                        <p className='text-2xl sm:text-3xl font-bold text-yellow-400'>{(earningsData.summary?.totalEarnings || 0).toFixed(2)} BZY</p>
+                        <p className='text-lg sm:text-xl font-semibold text-green-400'>${((earningsData.summary?.totalEarnings || 0) * 2.4).toFixed(2)} USD</p>
+                      </div>
                     </motion.div>
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
