@@ -189,6 +189,7 @@ const ReferralSection: React.FC = () => {
 // BezyCounterWithVideo Component
 const BezyCounterWithVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { trackEvent } = useAnalytics();
   const lastTimeRef = useRef(0);
   const accumulatedEarningsRef = useRef(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -205,12 +206,22 @@ const BezyCounterWithVideo: React.FC = () => {
       setIsPlaying(true);
       if (videoRef.current) {
         lastTimeRef.current = videoRef.current.currentTime;
+        trackEvent('play', {
+          videoTitle: 'BadBoy | StickgonBang feat LeFemme',
+          videoCurrentTime: videoRef.current.currentTime,
+        });
       }
     };
 
     const handlePause = () => {
       setIsPlaying(false);
       lastTimeRef.current = 0;
+      if (videoRef.current) {
+        trackEvent('pause', {
+          videoTitle: 'BadBoy | StickgonBang feat LeFemme',
+          videoCurrentTime: videoRef.current.currentTime,
+        });
+      }
     };
 
     const handleTimeUpdate = () => {
@@ -692,6 +703,7 @@ const BezyCounterWithVideo2: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const lastTimeRef = useRef(0);
   const accumulatedEarningsRef = useRef(0);
+  const { trackEvent } = useAnalytics();
   const [isPlaying, setIsPlaying] = useState(false);
   const [baseBalance, setBaseBalance] = useState(1850.25);
   const [sessionEarnings, setSessionEarnings] = useState(0);
@@ -706,12 +718,22 @@ const BezyCounterWithVideo2: React.FC = () => {
       setIsPlaying(true);
       if (videoRef.current) {
         lastTimeRef.current = videoRef.current.currentTime;
+        trackEvent('play', {
+          videoTitle: 'Bestie - LeFemme',
+          videoCurrentTime: videoRef.current.currentTime,
+        });
       }
     };
 
     const handlePause = () => {
       setIsPlaying(false);
       lastTimeRef.current = 0;
+      if (videoRef.current) {
+        trackEvent('pause', {
+          videoTitle: 'Bestie - LeFemme',
+          videoCurrentTime: videoRef.current.currentTime,
+        });
+      }
     };
 
     const handleTimeUpdate = () => {
@@ -729,6 +751,12 @@ const BezyCounterWithVideo2: React.FC = () => {
     const handleEnded = () => {
       setIsPlaying(false);
       lastTimeRef.current = 0;
+      if (videoRef.current) {
+        trackEvent('ended', {
+          videoTitle: 'Bestie - LeFemme',
+          videoCurrentTime: videoRef.current.currentTime,
+        });
+      }
       // Note: accumulatedEarningsRef is not reset - earnings persist until next session
     };
 
