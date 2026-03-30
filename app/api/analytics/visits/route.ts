@@ -16,6 +16,8 @@ let visitorSessions: Array<{
     playedAt: string;
     pausedAt?: string;
     duration: number; // seconds
+    earningsAccumulated: number; // BZY earned during this stream
+    earningsUSD: number; // USD equivalent
     pausePoints: Array<{
       pausedAt: number; // seconds into video
       timestamp: string;
@@ -23,6 +25,8 @@ let visitorSessions: Array<{
   }>;
   totalPageViewTime: number; // seconds
   totalStreamTime: number; // seconds
+  totalEarningsAccumulated: number; // Total BZY earned in session
+  totalEarningsUSD: number; // Total USD equivalent
 }> = [];
 
 export async function GET(request: NextRequest) {
@@ -35,11 +39,17 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ session }, { status: 200 });
   }
 
-  // Return all visitor analytics
-  return NextResponse.json({
+  // Return all visitor analytics with summary
+  const summary = {
     totalVisitors: visitorSessions.length,
+    totalStreams: visitorSessions.reduce((sum, s) => sum + s.videoStreams.length, 0),
+    totalStreamTime: visitorSessions.reduce((sum, s) => sum + s.totalStreamTime, 0),
+    totalEarningsAccumulated: visitorSessions.reduce((sum, s) => sum + s.totalEarningsAccumulated, 0),
+    totalEarningsUSD: visitorSessions.reduce((sum, s) => sum + s.totalEarningsUSD, 0),
     sessions: visitorSessions
-  }, { status: 200 });
+  };
+
+  return NextResponse.json(summary, { status: 200 });
 }
 
 export async function POST(request: NextRequest) {
@@ -50,7 +60,9 @@ export async function POST(request: NextRequest) {
       event, // 'pageview' | 'play' | 'pause' | 'ended'
       videoTitle,
       videoCurrentTime,
-      pageUrl
+      pageUrl,
+      earnings, // BZY earned
+      earningsUSD // USD equivalent
     } = body;
 
     if (!sessionId || !event) {
@@ -76,6 +88,8 @@ export async function POST(request: NextRequest) {
         videoStreams: [],
         totalPageViewTime: 0,
         totalStreamTime: 0,
+        totalEarningsAccumulated: 0,
+        totalEarningsUSD: 0,
       };
       visitorSessions.push(session);
     }
@@ -91,6 +105,8 @@ export async function POST(request: NextRequest) {
         videoTitle,
         playedAt: now,
         duration: 0,
+        earningsAccumulated: 0,
+        earningsUSD: 0,
         pausePoints: [] as Array<{ pausedAt: number; timestamp: string }>,
       };
       session.videoStreams.push(stream);
@@ -110,6 +126,17 @@ export async function POST(request: NextRequest) {
           timestamp: now,
         });
         lastStream.duration = videoCurrentTime;
+
+        // Update earnings if provided
+        if (earnings !== undefined) {
+          lastStream.earningsAccumulated = earnings;
+          session.totalEarningsAccumulated += earnings;
+        }
+        if (earningsUSD !== undefined) {
+          lastStream.earningsUSD = earningsUSD;
+          session.totalEarningsUSD += earningsUSD;
+        }
+
         session.totalStreamTime += videoCurrentTime;
       }
     } else if (event === 'ended' && videoTitle && videoCurrentTime !== undefined) {
@@ -121,6 +148,17 @@ export async function POST(request: NextRequest) {
       if (lastStream) {
         lastStream.pausedAt = now;
         lastStream.duration = videoCurrentTime;
+
+        // Update earnings if provided
+        if (earnings !== undefined) {
+          lastStream.earningsAccumulated = earnings;
+          session.totalEarningsAccumulated += earnings;
+        }
+        if (earningsUSD !== undefined) {
+          lastStream.earningsUSD = earningsUSD;
+          session.totalEarningsUSD += earningsUSD;
+        }
+
         session.totalStreamTime += videoCurrentTime;
       }
     }

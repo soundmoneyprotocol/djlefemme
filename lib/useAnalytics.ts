@@ -30,6 +30,8 @@ export const useAnalytics = () => {
       videoTitle?: string;
       videoCurrentTime?: number;
       pageUrl?: string;
+      earnings?: number; // BZY earned
+      earningsUSD?: number; // USD equivalent
     }
   ) => {
     try {

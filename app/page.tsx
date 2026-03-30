@@ -220,6 +220,8 @@ const BezyCounterWithVideo: React.FC = () => {
         trackEvent('pause', {
           videoTitle: 'BadBoy | StickgonBang feat LeFemme',
           videoCurrentTime: videoRef.current.currentTime,
+          earnings: sessionEarnings,
+          earningsUSD: sessionEarnings * 2.4,
         });
       }
     };
@@ -755,6 +757,8 @@ const BezyCounterWithVideo2: React.FC = () => {
         trackEvent('ended', {
           videoTitle: 'Bestie - LeFemme',
           videoCurrentTime: videoRef.current.currentTime,
+          earnings: sessionEarnings,
+          earningsUSD: sessionEarnings * 2.4,
         });
       }
       // Note: accumulatedEarningsRef is not reset - earnings persist until next session
