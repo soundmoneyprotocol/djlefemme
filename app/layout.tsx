@@ -3,7 +3,7 @@ import { RootClientWrapper } from '../components/RootClientWrapper';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Tasha Boue - Creative Artist',
+  title: 'Creative Director - Tasha Boue',
   description: 'Explore the work of Tasha Boue through stunning video content',
 };
 
