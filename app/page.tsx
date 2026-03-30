@@ -1163,7 +1163,7 @@ export default function TashaBoue() {
 
             {/* Pillar 2 */}
             <div className='bg-gradient-to-br from-pink-100 to-white dark:from-pink-900/30 dark:to-black border border-pink-200 dark:border-pink-500/30 rounded-2xl p-8 hover:border-pink-400/60 transition'>
-              <h3 className='text-3xl font-bold text-white mb-4'>Color</h3>
+              <h3 className='text-3xl font-bold text-black dark:text-white mb-4'>Color</h3>
               <p className='text-gray-700 dark:text-gray-300 text-lg'>
                 Color the Room Creatively
               </p>
@@ -1174,7 +1174,7 @@ export default function TashaBoue() {
 
             {/* Pillar 3 */}
             <div className='bg-gradient-to-br from-blue-100 to-white dark:from-blue-900/30 dark:to-black border border-blue-200 dark:border-blue-500/30 rounded-2xl p-8 hover:border-blue-400/60 transition'>
-              <h3 className='text-3xl font-bold text-white mb-4'>Carat</h3>
+              <h3 className='text-3xl font-bold text-black dark:text-white mb-4'>Carat</h3>
               <p className='text-gray-700 dark:text-gray-300 text-lg'>
                 Carats is the Heavy Weights in the Room
               </p>
@@ -1184,11 +1184,11 @@ export default function TashaBoue() {
             </div>
             {/* Pillar 4 */}
             <div className='bg-gradient-to-br from-emerald-100 to-white dark:from-emerald-900/30 dark:to-black border border-emerald-200 dark:border-emerald-500/30 rounded-2xl p-8 hover:border-emerald-400/60 transition'>
-              <h3 className='text-3xl font-bold text-white mb-4'>Clarity</h3>
-              <p className='text-gray-300 text-lg'>
+              <h3 className='text-3xl font-bold text-black dark:text-white mb-4'>Clarity</h3>
+              <p className='text-gray-700 dark:text-gray-300 text-lg'>
                 Clarity of Vision
               </p>
-              <p className='text-gray-400 text-sm mt-4'>
+              <p className='text-gray-600 dark:text-gray-400 text-sm mt-4'>
                 Strategic transparency, purpose-driven experiences, and authentic connections
               </p>
             </div>
@@ -1196,7 +1196,7 @@ export default function TashaBoue() {
 
           {/* Tier Structure */}
           <div className='mb-20'>
-            <h3 className='text-3xl font-bold text-white mb-12 text-center'>Membership Tiers</h3>
+            <h3 className='text-3xl font-bold text-black dark:text-white mb-12 text-center'>Membership Tiers</h3>
             <div className='grid md:grid-cols-4 gap-6'>
               {/* Flawless Tier */}
               <div className='bg-gradient-to-br from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 border border-yellow-300 dark:border-yellow-500/50 rounded-xl p-6'>
