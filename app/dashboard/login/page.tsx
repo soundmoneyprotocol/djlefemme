@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { signIn, getSession } from '@/lib/supabase';
+import { signIn, getSession } from '../../../lib/supabase';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

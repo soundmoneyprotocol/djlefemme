@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { LogOut, Mail, MessageSquare, Calendar, DollarSign } from 'lucide-react';
-import { getSession, signOut } from '@/lib/supabase';
+import { getSession, signOut } from '../../lib/supabase';
 
 interface Booking {
   name: string;

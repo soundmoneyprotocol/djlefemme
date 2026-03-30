@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { RootClientWrapper } from '@/components/RootClientWrapper';
+import { RootClientWrapper } from '../components/RootClientWrapper';
 import './globals.css';
 
 export const metadata: Metadata = {
