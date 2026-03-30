@@ -1,6 +1,6 @@
 'use client';
 
-import { ThemeProvider } from '@/context/ThemeContext';
+import { ThemeProvider } from '../context/ThemeContext';
 import { ThemeToggle } from './ThemeToggle';
 
 export function RootClientWrapper({ children }: { children: React.ReactNode }) {
