@@ -1059,24 +1059,12 @@ export default function TashaBoue() {
           </div>
 
            <div className='space-y-8 text-gray-300'>
-             <div>
-               <p className='text-lg leading-relaxed'>
-                 Tasha Bouè is a renowned fashion stylist and entrepreneur, known for curating Jamie Foxx’s iconic looks in film and on the red carpet. She’s styled him for The Amazing Spider-Man 2, White House Down, and major editorials from Essence to GQ. As a co-founder of the VVS Collective, a partnership with the Sound Money Protocol founded by Casmir Patterson, Tasha is redefining ownership for musicians, creating a future where culture and royalties align.
-               </p>
-             </div>
-
-             <div>
-               <h3 className='text-2xl font-bold text-black dark:text-white mb-4'>Two-Paragraph Snapshot</h3>
-               <div className='space-y-6'>
-                 <p className='text-lg leading-relaxed'>
-                   <span className='font-bold text-black dark:text-white'>Who is Tasha Bouè?</span> Tasha is a visionary fashion stylist whose creative impact spans over a decade, shaping Jamie Foxx’s unforgettable on-screen personas—from Electro in The Amazing Spider-Man 2 to his commanding presence in White House Down. Tasha’s vision goes beyond the spotlight; she has styled for top-tier platforms, from Cannes red carpets to editorial spreads in Essence, GQ, and beyond.
-                 </p>
-                 <p className='text-lg leading-relaxed'>
-                   But Tasha’s artistry doesn’t stop at fashion. As co-founder of the VVS Collective, a powerful community within the Sound Money Protocol founded by Casmir Patterson, she is reshaping how musicians thrive. The VVS Collective is more than a brand; it’s the antithesis of the status quo, a movement where artists regain ownership, autonomy, and a vibrant future in music and culture.
-                 </p>
-               </div>
-             </div>
-           </div>
+              <div>
+                <p className='text-lg leading-relaxed'>
+                  Tasha Bouè is a renowned fashion stylist and entrepreneur, known for curating Jamie Foxx’s iconic looks in film and on the red carpet. She’s styled him for The Amazing Spider-Man 2, White House Down, and major editorials from Essence to GQ. As a co-founder of the VVS Collective, a partnership with the Sound Money Protocol founded by Casmir Patterson, Tasha is redefining ownership for musicians, creating a future where culture and royalties align.
+                </p>
+              </div>
+            </div>
         </div>
       </section>
 
@@ -1085,7 +1073,17 @@ export default function TashaBoue() {
         <div className='max-w-4xl mx-auto'>
           <div className='mb-12'>
             <h2 className='text-4xl md:text-5xl font-bold text-white mb-4 text-center'>Explore the Vision</h2>
-            <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>luxury meets sovereignty</p>
+            <p className='text-lg text-gray-700 dark:text-gray-300 text-center mb-6'>luxury meets sovereignty</p>
+            <div className='flex justify-center mb-12'>
+              <a
+                href='/docs/HouseDAO.pdf'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='bg-white dark:bg-gray-900 text-black dark:text-white border border-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition'
+              >
+                View HouseDAO PDF
+              </a>
+            </div>
           </div>
           
           <div className='flex justify-center'>
@@ -1101,51 +1099,53 @@ export default function TashaBoue() {
         </div>
       </section>
 
-      {/* HouseDAO Dinners Section */}
-      <section className='relative z-10 min-h-screen bg-gradient-to-b from-white via-purple-50/50 to-white dark:from-black dark:via-purple-900/10 dark:to-black py-20 px-6'>
-        <div className='max-w-4xl mx-auto'>
-          <div className='mb-12'>
-            <h2 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent mb-4 text-center'>HouseDAO Dinners</h2>
-            <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Curated culinary experiences and strategic networking for founders & investors</p>
-          </div>
-          
-          <div className='flex justify-center'>
-            <iframe 
-              src="https://luma.com/embed/calendar/cal-YjBaEbhdv11tv4G/events"
-              width="600"
-              height="450"
-              frameBorder="0"
-              style={{ border: '1px solid #bfcbda88', borderRadius: '4px' }}
-              allowFullScreen
-              aria-hidden="false"
-              tabIndex={0}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Billionaires Row Section */}
-      <section className='relative z-10 min-h-screen bg-gradient-to-b from-white via-yellow-50/50 to-white dark:from-black dark:via-yellow-900/10 dark:to-black py-20 px-6'>
-        <div className='max-w-4xl mx-auto'>
-          <div className='mb-12'>
-            <h2 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent mb-4 text-center'>Billionaires Row</h2>
-            <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Exclusive experiences for the world's most discerning elite</p>
-          </div>
-          
-          <div className='flex justify-center'>
-            <iframe 
-              src="https://luma.com/embed/calendar/cal-YjBaEbhdv11tv4G/events"
-              width="600"
-              height="450"
-              frameBorder="0"
-              style={{ border: '1px solid #bfcbda88', borderRadius: '4px' }}
-              allowFullScreen
-              aria-hidden="false"
-              tabIndex={0}
-            />
-          </div>
-        </div>
-      </section>
+       {/* HouseDAO Dinners Section */}
+       {/* <section className='relative z-10 min-h-screen bg-gradient-to-b from-white via-purple-50/50 to-white dark:from-black dark:via-purple-900/10 dark:to-black py-20 px-6'>
+         <div className='max-w-4xl mx-auto'>
+           <div className='mb-12'>
+             <h2 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent mb-4 text-center'>HouseDAO Dinners</h2>
+             <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Curated culinary experiences and strategic networking for founders & investors</p>
+           </div>
+           
+           <div className='flex justify-center'>
+             <iframe 
+               src="https://luma.com/embed/calendar/cal-YjBaEbhdv11tv4G/events"
+               width="600"
+               height="450"
+               frameBorder="0"
+               style={{ border: '1px solid #bfcbda88', borderRadius: '4px' }}
+               allowFullScreen
+               aria-hidden="false"
+               tabIndex={0}
+             />
+           </div>
+         </div>
+       </section>
+       */}
+ 
+       {/* Billionaires Row Section */}
+       {/* <section className='relative z-10 min-h-screen bg-gradient-to-b from-white via-yellow-50/50 to-white dark:from-black dark:via-yellow-900/10 dark:to-black py-20 px-6'>
+         <div className='max-w-4xl mx-auto'>
+           <div className='mb-12'>
+             <h2 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent mb-4 text-center'>Billionaires Row</h2>
+             <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Exclusive experiences for the world's most discerning elite</p>
+           </div>
+           
+           <div className='flex justify-center'>
+             <iframe 
+               src="https://luma.com/embed/calendar/cal-YjBaEbhdv11tv4G/events"
+               width="600"
+               height="450"
+               frameBorder="0"
+               style={{ border: '1px solid #bfcbda88', borderRadius: '4px' }}
+               allowFullScreen
+               aria-hidden="false"
+               tabIndex={0}
+             />
+           </div>
+         </div>
+       </section>
+       */}
 
       {/* Events Calendar Section */}
       <section className='relative z-10 min-h-screen bg-white dark:bg-black py-20 px-6'>
