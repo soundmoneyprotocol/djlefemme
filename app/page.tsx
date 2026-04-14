@@ -21,16 +21,6 @@ const videos: Video[] = [
     id: '1',
     src: '/videos/Lefemme_Performance_Intro.mp4',
     title: 'Performance Intro'
-  },
-  {
-    id: '2',
-    src: '/videos/TashaBoue_MiniDoc_Pt1.mp4',
-    title: 'Mini Doc Part 1'
-  },
-  {
-    id: '3',
-    src: '/videos/ET_Jaime_Tasha_Long_form.mp4',
-    title: 'Long Form'
   }
 ];
 
