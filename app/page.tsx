@@ -1013,12 +1013,15 @@ export default function TashaBoue() {
               >
                 <div className='relative w-full h-full rounded-2xl overflow-hidden shadow-2xl'>
                   {/* Video */}
-                  <video
-                    src={video.src}
-                    className='w-full h-full object-cover'
-                    controls
-                    playsInline
-                  />
+                   <video
+                     src={video.src}
+                     className='w-full h-full object-cover'
+                     controls
+                     playsInline
+                     autoPlay={index === 0}
+                     muted={index === 0}
+                     loop={index === 0}
+                   />
 
 
                 </div>
