@@ -19,8 +19,8 @@ interface Video {
 const videos: Video[] = [
   {
     id: '1',
-    src: '/videos/ET_Jaime_Tasha.mp4',
-    title: 'Mini Doc'
+    src: '/videos/Lefemme_Performance_Intro.mp4',
+    title: 'Performance Intro'
   },
   {
     id: '2',
@@ -172,7 +172,7 @@ const ReferralSection: React.FC = () => {
             {/* CTA */}
             <div className='border-t border-green-500/20 pt-6'>
               <a
-                href='https://os.soundmoneyprotocol.xyz/profile/lefemme'
+                 href='https://www.lefemmeboue.com/'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='w-full bg-gradient-to-r from-green-600 to-emerald-700 dark:from-green-500 dark:to-emerald-600 hover:from-green-700 hover:to-emerald-800 dark:hover:from-green-600 dark:hover:to-emerald-700 text-white font-bold py-3 rounded-lg transition text-center inline-block'
@@ -1058,46 +1058,25 @@ export default function TashaBoue() {
             <p className='text-xl md:text-2xl font-semibold text-white mb-2'>HouseDAO</p>
           </div>
 
-          <div className='space-y-8 text-gray-300'>
-            {/* Main Bio */}
-            <div>
-              <h3 className='text-2xl font-bold text-black dark:text-white mb-4'>Who is Tasha Boué</h3>
-              <p className='text-lg leading-relaxed'>
-                Tasha Boué is a renowned fashion stylist and entrepreneur who has been instrumental in crafting <span className='text-pink-400 font-semibold'>Jaime Foxx's iconic on-screen and red-carpet looks for over a decade.</span> She is best known for her work as Jaime Foxx's personal and film stylist, curating his looks for major projects, including:
-              </p>
-              <ul className='mt-4 space-y-2 ml-6'>
-                <li className='flex items-start gap-3'>
-                  <span className='text-pink-400 mt-1'>•</span>
-                  <span><span className='text-black dark:text-white font-semibold'>Electro</span> in The Amazing Spider-Man 2</span>
-                </li>
-                <li className='flex items-start gap-3'>
-                  <span className='text-pink-400 mt-1'>•</span>
-                  <span><span className='text-black dark:text-white font-semibold'>Django</span> in Django Unchained</span>
-                </li>
-                <li className='flex items-start gap-3'>
-                  <span className='text-pink-400 mt-1'>•</span>
-                  <span><span className='text-black dark:text-white font-semibold'>President James Sawyer</span> in White House Down</span>
-                </li>
-              </ul>
-            </div>
+           <div className='space-y-8 text-gray-300'>
+             <div>
+               <p className='text-lg leading-relaxed'>
+                 Tasha Bouè is a renowned fashion stylist and entrepreneur, known for curating Jamie Foxx’s iconic looks in film and on the red carpet. She’s styled him for The Amazing Spider-Man 2, White House Down, and major editorials from Essence to GQ. As a co-founder of the VVS Collective, a partnership with the Sound Money Protocol founded by Casmir Patterson, Tasha is redefining ownership for musicians, creating a future where culture and royalties align.
+               </p>
+             </div>
 
-            {/* The Heart of Cool */}
-            <div>
-              <h3 className='text-2xl font-bold text-black dark:text-white mb-4'>The Heart of Cool</h3>
-              <p className='text-lg leading-relaxed'>
-                Tasha has curated and organized events at the world's most prestigious venues—Miami Art Basel, SXSW, Coachella, and many more—seamlessly blending music, fashion, and visual arts. Her strategic collaborations with luxury hotels and private jet companies have elevated exclusive experiences, making them accessible to a discerning global audience.
-              </p>
-            </div>
-
-            {/* Fashion Media & Consulting */}
-            <div>
-              <h3 className='text-2xl font-bold text-black dark:text-white mb-4'>Fashion Media & Consulting</h3>
-              <p className='text-lg leading-relaxed'>
-                Featured on IMDb for her work in the wardrobe department of <span className='text-black dark:text-white font-semibold'>America's Next Top Model</span>, Tasha's expertise spans film, television, fashion curation, and high-level event production.
-              </p>
-            </div>
-
-          </div>
+             <div>
+               <h3 className='text-2xl font-bold text-black dark:text-white mb-4'>Two-Paragraph Snapshot</h3>
+               <div className='space-y-6'>
+                 <p className='text-lg leading-relaxed'>
+                   <span className='font-bold text-black dark:text-white'>Who is Tasha Bouè?</span> Tasha is a visionary fashion stylist whose creative impact spans over a decade, shaping Jamie Foxx’s unforgettable on-screen personas—from Electro in The Amazing Spider-Man 2 to his commanding presence in White House Down. Tasha’s vision goes beyond the spotlight; she has styled for top-tier platforms, from Cannes red carpets to editorial spreads in Essence, GQ, and beyond.
+                 </p>
+                 <p className='text-lg leading-relaxed'>
+                   But Tasha’s artistry doesn’t stop at fashion. As co-founder of the VVS Collective, a powerful community within the Sound Money Protocol founded by Casmir Patterson, she is reshaping how musicians thrive. The VVS Collective is more than a brand; it’s the antithesis of the status quo, a movement where artists regain ownership, autonomy, and a vibrant future in music and culture.
+                 </p>
+               </div>
+             </div>
+           </div>
         </div>
       </section>
 
