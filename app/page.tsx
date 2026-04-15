@@ -1048,7 +1048,7 @@ export default function TashaBoue() {
             <h2 className='text-3xl md:text-4xl font-bold mb-4 text-white'>
               Creative Director & Co-Founder
             </h2>
-            <p className='text-xl md:text-2xl font-semibold text-white mb-2'>HouseDAO</p>
+            <p className='text-xl md:text-2xl font-semibold text-white mb-2'>VVS Flawless Experiences</p>
           </div>
 
            <div className='space-y-8 text-gray-300'>
@@ -1061,7 +1061,7 @@ export default function TashaBoue() {
         </div>
       </section>
 
-      {/* HouseDAO Pitch Deck Section */}
+      {/* VVS Flawless Experiences Pitch Deck Section */}
       <section className='relative z-10 min-h-screen bg-white dark:bg-black py-20 px-6'>
         <div className='max-w-4xl mx-auto'>
           <div className='mb-12'>
@@ -1069,12 +1069,12 @@ export default function TashaBoue() {
             <p className='text-lg text-gray-700 dark:text-gray-300 text-center mb-6'>luxury meets sovereignty</p>
             <div className='flex justify-center mb-12'>
               <a
-                href='/docs/HouseDAO.pdf'
+                href='/docs/VVS_Flawless_Experiences.pdf'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='bg-white dark:bg-gray-900 text-black dark:text-white border border-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition'
               >
-                View HouseDAO PDF
+                View VVS Flawless Experiences PDF
               </a>
             </div>
           </div>
@@ -1092,11 +1092,11 @@ export default function TashaBoue() {
         </div>
       </section>
 
-       {/* HouseDAO Dinners Section */}
+       {/* VVS Flawless Experiences Dinners Section */}
        {/* <section className='relative z-10 min-h-screen bg-gradient-to-b from-white via-purple-50/50 to-white dark:from-black dark:via-purple-900/10 dark:to-black py-20 px-6'>
          <div className='max-w-4xl mx-auto'>
            <div className='mb-12'>
-             <h2 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent mb-4 text-center'>HouseDAO Dinners</h2>
+             <h2 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent mb-4 text-center'>VVS Flawless Experiences Dinners</h2>
              <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Curated culinary experiences and strategic networking for founders & investors</p>
            </div>
            
