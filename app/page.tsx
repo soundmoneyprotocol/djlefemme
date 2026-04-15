@@ -286,7 +286,7 @@ const BezyCounterWithVideo: React.FC = () => {
                 controls
                 playsInline
               >
-                <source src='/videos/BadBoy-Lefemme.mp4' type='video/mp4' />
+                <source src='/videos/BADBOY_Stick_Lefemme.mp4' type='video/mp4' />
                 Your browser does not support the video tag.
               </video>
             </div>
