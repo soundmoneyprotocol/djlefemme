@@ -199,7 +199,7 @@ const BezyCounterWithVideo: React.FC = () => {
       if (videoRef.current) {
         lastTimeRef.current = videoRef.current.currentTime;
         trackEvent('play', {
-          videoTitle: 'BadBoy | StickgonBang feat LeFemme',
+          videoTitle: 'BadBoy | StickgonBang feat Lefemme',
           videoCurrentTime: videoRef.current.currentTime,
         });
       }
@@ -210,7 +210,7 @@ const BezyCounterWithVideo: React.FC = () => {
       lastTimeRef.current = 0;
       if (videoRef.current) {
         trackEvent('pause', {
-          videoTitle: 'BadBoy | StickgonBang feat LeFemme',
+          videoTitle: 'BadBoy | StickgonBang feat Lefemme',
           videoCurrentTime: videoRef.current.currentTime,
           earnings: sessionEarnings,
           earningsUSD: sessionEarnings * 2.4,
@@ -239,7 +239,7 @@ const BezyCounterWithVideo: React.FC = () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            trackTitle: 'Bestie - LeFemme',
+            trackTitle: 'Bestie - Lefemme',
             duration: Math.round(video.currentTime),
             earnings: sessionEarnings,
           }),
@@ -268,7 +268,7 @@ const BezyCounterWithVideo: React.FC = () => {
     <section className='relative z-10 min-h-screen bg-gradient-to-b from-white via-purple-50/50 to-white dark:from-black dark:via-purple-900/10 dark:to-black py-20 px-6'>
       <div className='max-w-4xl mx-auto'>
         <div className='mb-16'>
-          <h2 className='text-5xl md:text-7xl font-black text-black dark:text-white mb-4 text-center'>BadBoy | StickgonBang feat LeFemme</h2>
+          <h2 className='text-5xl md:text-7xl font-black text-black dark:text-white mb-4 text-center'>BadBoy | StickgonBang feat Lefemme</h2>
           <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Play and earn with real-time SoundMoneyOS counter</p>
         </div>
 
@@ -286,7 +286,7 @@ const BezyCounterWithVideo: React.FC = () => {
                 controls
                 playsInline
               >
-                <source src='/videos/BadBoy-LeFemme.mp4' type='video/mp4' />
+                <source src='/videos/BadBoy-Lefemme.mp4' type='video/mp4' />
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -713,7 +713,7 @@ const BezyCounterWithVideo2: React.FC = () => {
       if (videoRef.current) {
         lastTimeRef.current = videoRef.current.currentTime;
         trackEvent('play', {
-          videoTitle: 'Bestie - LeFemme',
+          videoTitle: 'Bestie - Lefemme',
           videoCurrentTime: videoRef.current.currentTime,
         });
       }
@@ -724,7 +724,7 @@ const BezyCounterWithVideo2: React.FC = () => {
       lastTimeRef.current = 0;
       if (videoRef.current) {
         trackEvent('pause', {
-          videoTitle: 'Bestie - LeFemme',
+          videoTitle: 'Bestie - Lefemme',
           videoCurrentTime: videoRef.current.currentTime,
         });
       }
@@ -747,7 +747,7 @@ const BezyCounterWithVideo2: React.FC = () => {
       lastTimeRef.current = 0;
       if (videoRef.current) {
         trackEvent('ended', {
-          videoTitle: 'Bestie - LeFemme',
+          videoTitle: 'Bestie - Lefemme',
           videoCurrentTime: videoRef.current.currentTime,
           earnings: sessionEarnings,
           earningsUSD: sessionEarnings * 2.4,
@@ -775,7 +775,7 @@ const BezyCounterWithVideo2: React.FC = () => {
     <section className='relative z-10 min-h-screen bg-gradient-to-b from-white via-blue-50/50 to-white dark:from-black dark:via-blue-900/10 dark:to-black py-20 px-6'>
       <div className='max-w-4xl mx-auto'>
         <div className='mb-16'>
-          <h2 className='text-5xl md:text-7xl font-black text-black dark:text-white mb-4 text-center'>Bestie - LeFemme</h2>
+          <h2 className='text-5xl md:text-7xl font-black text-black dark:text-white mb-4 text-center'>Bestie - Lefemme</h2>
           <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Stream Single to earn rewards</p>
         </div>
 

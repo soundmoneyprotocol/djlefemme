@@ -13,14 +13,14 @@ let earningsData: Array<{
   }>;
 }> = [
   {
-    trackTitle: 'Bestie - LeFemme',
+    trackTitle: 'Bestie - Lefemme',
     playCount: 0,
     totalEarnings: 0,
     lastPlayed: '',
     playHistory: [],
   },
   {
-    trackTitle: 'BadBoy | StickgonBang feat LeFemme',
+    trackTitle: 'BadBoy | StickgonBang feat Lefemme',
     playCount: 0,
     totalEarnings: 0,
     lastPlayed: '',
