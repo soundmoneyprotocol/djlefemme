@@ -199,7 +199,7 @@ const BezyCounterWithVideo: React.FC = () => {
       if (videoRef.current) {
         lastTimeRef.current = videoRef.current.currentTime;
         trackEvent('play', {
-          videoTitle: 'BadBoy | StickgonBang feat Lefemme',
+          videoTitle: 'Bestie Official Video',
           videoCurrentTime: videoRef.current.currentTime,
         });
       }
@@ -210,7 +210,7 @@ const BezyCounterWithVideo: React.FC = () => {
       lastTimeRef.current = 0;
       if (videoRef.current) {
         trackEvent('pause', {
-          videoTitle: 'BadBoy | StickgonBang feat Lefemme',
+          videoTitle: 'Bestie Official Video',
           videoCurrentTime: videoRef.current.currentTime,
           earnings: sessionEarnings,
           earningsUSD: sessionEarnings * 2.4,
@@ -268,7 +268,7 @@ const BezyCounterWithVideo: React.FC = () => {
     <section className='relative z-10 min-h-screen bg-gradient-to-b from-white via-purple-50/50 to-white dark:from-black dark:via-purple-900/10 dark:to-black py-20 px-6'>
       <div className='max-w-4xl mx-auto'>
         <div className='mb-16'>
-          <h2 className='text-5xl md:text-7xl font-black text-black dark:text-white mb-4 text-center'>BadBoy | StickgonBang feat Lefemme</h2>
+          <h2 className='text-5xl md:text-7xl font-black text-black dark:text-white mb-4 text-center'>Bestie Official Video</h2>
           <p className='text-lg text-gray-700 dark:text-gray-300 text-center'>Play and earn with real-time SoundMoneyOS counter</p>
         </div>
 
@@ -280,15 +280,16 @@ const BezyCounterWithVideo: React.FC = () => {
             className='bg-gradient-to-br from-gray-100 to-white dark:from-neutral-900/80 dark:to-neutral-950/80 border border-gray-300 dark:border-neutral-800 rounded-2xl overflow-hidden backdrop-blur-sm'
           >
             <div className='relative bg-black'>
-              <video
-                ref={videoRef}
-                className='w-full h-auto max-h-96 object-cover'
-                controls
-                playsInline
-              >
-                <source src='/videos/BADBOY_Stick_Lefemme.mp4' type='video/mp4' />
-                Your browser does not support the video tag.
-              </video>
+              <iframe
+                width="100%"
+                height="384"
+                src="https://www.youtube.com/embed/Q_MHKKucosU"
+                title="Bestie Official Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                style={{ borderRadius: '0.5rem' }}
+              />
             </div>
 
             {/* Counter Overlay */}
@@ -978,7 +979,7 @@ export default function TashaBoue() {
               </span>
             ))}
             <br />
-            {'Tasha Boue'.split('').map((char, i) => (
+            {'Tasha\' Lefemme Bouè'.split('').map((char, i) => (
               <span
                 key={`tasha-${i}`}
                 className='letter inline-block bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent'
